@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>GLOW — Beauty & Skincare</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- ========== TOAST ========== -->
+<div id="toast" class="toast"></div>
+
+<!-- ========== OVERLAY ========== -->
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- ========== NAVBAR ========== -->
+<header class="header" id="header">
+  <div class="header-top">
+    <span>✦ Free shipping on orders over $50 &nbsp;|&nbsp; Use code <strong>GLOW20</strong> for 20% off ✦</span>
+  </div>
+  <nav class="navbar">
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#" class="logo" onclick="showPage('home')">GL<em>OW</em></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#" onclick="showPage('home')">Home</a></li>
+      <li><a href="#" onclick="showPage('shop')">Shop</a></li>
+      <li><a href="#" onclick="showPage('home'); scrollTo('#collections')">Collections</a></li>
+      <li><a href="#" onclick="showPage('home'); scrollTo('#about')">About</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="icon-btn" onclick="toggleSearch()" aria-label="Search">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      </button>
+      <button class="icon-btn" onclick="showPage('wishlist')" aria-label="Wishlist">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="badge" id="wishlistBadge">0</span>
+      </button>
+      <button class="icon-btn" onclick="toggleCart()" aria-label="Cart">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        <span class="badge" id="cartBadge">0</span>
+      </button>
+      <button class="icon-btn" onclick="toggleAuth()" aria-label="Account">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </button>
+      <button class="icon-btn admin-btn" onclick="showPage('admin')" title="Admin Dashboard">
+        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </button>
+    </div>
+  </nav>
+  <!-- SEARCH BAR -->
+  <div class="search-bar" id="searchBar">
+    <div class="search-inner">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <input type="text" id="searchInput" placeholder="Search serums, moisturizers, SPF…" oninput="handleSearch(this.value)"/>
+      <button onclick="toggleSearch()">✕</button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</header>
+
+<!-- ========== CART DRAWER ========== -->
+<div class="drawer cart-drawer" id="cartDrawer">
+  <div class="drawer-header">
+    <h3>Your Cart <span id="cartCount">(0)</span></h3>
+    <button onclick="toggleCart()">✕</button>
+  </div>
+  <div class="drawer-body" id="cartItems"><p class="empty-msg">Your cart is empty ✨</p></div>
+  <div class="drawer-footer" id="cartFooter" style="display:none">
+    <div class="cart-totals">
+      <div class="ct-row"><span>Subtotal</span><span id="cartSubtotal">$0.00</span></div>
+      <div class="ct-row"><span>Shipping</span><span id="cartShipping">Free</span></div>
+      <div class="ct-row total"><span>Total</span><span id="cartTotal">$0.00</span></div>
+    </div>
+    <button class="btn btn-primary btn-full" onclick="showPage('checkout'); toggleCart()">Proceed to Checkout</button>
+    <button class="btn btn-outline btn-full" onclick="toggleCart(); showPage('shop')">Continue Shopping</button>
+  </div>
+</div>
+
+<!-- ========== AUTH DRAWER ========== -->
+<div class="drawer auth-drawer" id="authDrawer">
+  <div class="drawer-header">
+    <h3 id="authTitle">Welcome Back</h3>
+    <button onclick="toggleAuth()">✕</button>
+  </div>
+  <div class="drawer-body">
+    <div id="loginForm">
+      <div class="form-group"><label>Email</label><input type="email" id="loginEmail" placeholder="you@example.com"/></div>
+      <div class="form-group"><label>Password</label><input type="password" id="loginPass" placeholder="••••••••"/></div>
+      <button class="btn btn-primary btn-full" onclick="handleLogin()">Sign In</button>
+      <p class="auth-switch">Don't have an account? <a href="#" onclick="switchAuth('register')">Sign Up</a></p>
+    </div>
+    <div id="registerForm" style="display:none">
+      <div class="form-group"><label>Full Name</label><input type="text" id="regName" placeholder="Jane Doe"/></div>
+      <div class="form-group"><label>Email</label><input type="email" id="regEmail" placeholder="you@example.com"/></div>
+      <div class="form-group"><label>Password</label><input type="password" id="regPass" placeholder="••••••••"/></div>
+      <button class="btn btn-primary btn-full" onclick="handleRegister()">Create Account</button>
+      <p class="auth-switch">Already have an account? <a href="#" onclick="switchAuth('login')">Sign In</a></p>
+    </div>
+    <div id="profilePanel" style="display:none">
+      <div class="profile-avatar" id="profileAvatar">JD</div>
+      <p id="profileName" style="text-align:center;font-weight:600;margin-bottom:.5rem"></p>
+      <p id="profileEmail" style="text-align:center;font-size:.85rem;color:var(--muted);margin-bottom:1.5rem"></p>
+      <button class="btn btn-outline btn-full" onclick="showPage('orders'); toggleAuth()">My Orders</button>
+      <button class="btn btn-outline btn-full" onclick="handleLogout()" style="margin-top:.75rem;border-color:var(--danger);color:var(--danger)">Sign Out</button>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     PAGE: HOME
+     ========================================================= -->
+<div class="page" id="page-home">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-blobs">
+      <div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    </div>
+    <div class="hero-content">
+      <span class="hero-eyebrow">✦ New Spring Collection 2024</span>
+      <h1 class="hero-title">Skin that<br/><em>glows</em> from<br/>within.</h1>
+      <p class="hero-sub">Luxurious, science-backed skincare formulated for every skin type. Clean ingredients. Real results.</p>
+      <div class="hero-actions">
+        <button class="btn btn-primary btn-lg" onclick="showPage('shop')">Shop Now</button>
+        <button class="btn btn-ghost btn-lg" onclick="scrollTo('#collections')">Explore Collections</button>
+      </div>
+      <div class="hero-trust">
+        <span>★★★★★ 4.9/5</span><span>|</span>
+        <span>50K+ Happy Customers</span><span>|</span>
+        <span>Cruelty-Free & Vegan</span>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-product-showcase">
+        <div class="hps-circle hps-c1"></div>
+        <div class="hps-circle hps-c2"></div>
+        <div class="hps-main">
+          <div class="product-blob-img big-blob">
+            <div class="pb-inner">
+              <div class="pb-label">Best Seller</div>
+              <div class="pb-name">Glow Serum</div>
+              <div class="pb-price">$48</div>
+            </div>
+          </div>
+        </div>
+        <div class="hps-pill p1">✦ Vitamin C</div>
+        <div class="hps-pill p2">SPF 50+</div>
+        <div class="hps-pill p3">Hyaluronic Acid</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <span>VITAMIN C SERUM</span><span>✦</span><span>RETINOL CREAM</span><span>✦</span>
+      <span>HYALURONIC TONER</span><span>✦</span><span>SPF 50 SUNSCREEN</span><span>✦</span>
+      <span>GLOW MASK</span><span>✦</span><span>EYE SERUM</span><span>✦</span>
+      <span>VITAMIN C SERUM</span><span>✦</span><span>RETINOL CREAM</span><span>✦</span>
+      <span>HYALURONIC TONER</span><span>✦</span><span>SPF 50 SUNSCREEN</span><span>✦</span>
+    </div>
+  </div>
+
+  <!-- FEATURED PRODUCTS -->
+  <section class="section" id="featured">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <p class="section-eyebrow">Bestsellers</p>
+          <h2 class="section-title">Fan Favourites</h2>
+        </div>
+        <button class="btn btn-outline" onclick="showPage('shop')">View All →</button>
+      </div>
+      <div class="products-grid" id="featuredGrid"></div>
+    </div>
+  </section>
+
+  <!-- COLLECTIONS -->
+  <section class="section collections-sec" id="collections">
+    <div class="container">
+      <p class="section-eyebrow" style="text-align:center">Categories</p>
+      <h2 class="section-title" style="text-align:center">Shop by Collection</h2>
+      <div class="collections-grid">
+        <div class="collection-card cc1" onclick="filterAndGo('Serum')">
+          <div class="cc-content"><h3>Serums</h3><p>Targeted treatments for every concern</p><span>Shop Now →</span></div>
+        </div>
+        <div class="collection-card cc2" onclick="filterAndGo('Moisturizer')">
+          <div class="cc-content"><h3>Moisturizers</h3><p>Deep hydration for radiant skin</p><span>Shop Now →</span></div>
+        </div>
+        <div class="collection-card cc3" onclick="filterAndGo('Sunscreen')">
+          <div class="cc-content"><h3>Sunscreen</h3><p>Protect & perfect every day</p><span>Shop Now →</span></div>
+        </div>
+        <div class="collection-card cc4" onclick="filterAndGo('Mask')">
+          <div class="cc-content"><h3>Masks</h3><p>Intensive weekly rituals</p><span>Shop Now →</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BENEFITS -->
+  <section class="section benefits-sec">
+    <div class="container">
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="bc-icon">🌿</div>
+          <h4>Clean Ingredients</h4>
+          <p>Formulated without parabens, sulfates or artificial fragrances.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="bc-icon">🧪</div>
+          <h4>Dermatologist Tested</h4>
+          <p>Every product is clinically tested and dermatologist-approved.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="bc-icon">🐰</div>
+          <h4>Cruelty-Free</h4>
+          <p>100% vegan and cruelty-free certified by PETA & Leaping Bunny.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="bc-icon">🚚</div>
+          <h4>Free Shipping</h4>
+          <p>Complimentary shipping on all orders over $50 worldwide.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT / BRAND STORY -->
+  <section class="section about-sec" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual">
+          <div class="av-blob av-b1"></div>
+          <div class="av-blob av-b2"></div>
+          <div class="av-card"><h3>Our Mission</h3><p>Science meets self-care. Every formula is backed by research and created with love.</p></div>
+        </div>
+        <div class="about-text">
+          <p class="section-eyebrow">Our Story</p>
+          <h2 class="section-title">Born from a passion<br/>for <em>real beauty</em></h2>
+          <p>GLOW was founded in 2018 by a team of cosmetic chemists and skincare enthusiasts who believed the world deserved better beauty. We combine the latest in dermatology with time-tested botanical ingredients.</p>
+          <p>Our philosophy is simple: beautiful skin starts with what you put on it. No fillers. No shortcuts. Just pure, potent formulations that work.</p>
+          <div class="about-stats">
+            <div><strong>6+</strong><span>Years of Research</span></div>
+            <div><strong>50K+</strong><span>Happy Customers</span></div>
+            <div><strong>30+</strong><span>Products</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section newsletter-sec">
+    <div class="container">
+      <div class="newsletter-box">
+        <div class="nl-blobs"><div class="nlb1"></div><div class="nlb2"></div></div>
+        <div class="nl-content">
+          <p class="section-eyebrow">✦ Join the Glow Club</p>
+          <h2>Get 20% off your<br/>first order</h2>
+          <p>Plus exclusive skincare tips, new launches and members-only deals.</p>
+          <div class="nl-form">
+            <input type="email" id="nlEmail" placeholder="Enter your email address"/>
+            <button class="btn btn-primary" onclick="handleNewsletter()">Subscribe</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div><!-- /page-home -->
+
+<!-- =========================================================
+     PAGE: SHOP
+     ========================================================= -->
+<div class="page" id="page-shop" style="display:none">
+  <div class="shop-layout">
+    <!-- SIDEBAR -->
+    <aside class="shop-sidebar" id="shopSidebar">
+      <div class="sidebar-section">
+        <h4>Category</h4>
+        <div class="filter-group" id="catFilters">
+          <label class="filter-check"><input type="checkbox" value="all" checked onchange="applyFilters()"/> All Products</label>
+          <label class="filter-check"><input type="checkbox" value="Serum" onchange="applyFilters()"/> Serums</label>
+          <label class="filter-check"><input type="checkbox" value="Moisturizer" onchange="applyFilters()"/> Moisturizers</label>
+          <label class="filter-check"><input type="checkbox" value="Sunscreen" onchange="applyFilters()"/> Sunscreen</label>
+          <label class="filter-check"><input type="checkbox" value="Mask" onchange="applyFilters()"/> Masks</label>
+          <label class="filter-check"><input type="checkbox" value="Toner" onchange="applyFilters()"/> Toners</label>
+          <label class="filter-check"><input type="checkbox" value="Eye Care" onchange="applyFilters()"/> Eye Care</label>
+          <label class="filter-check"><input type="checkbox" value="Cleanser" onchange="applyFilters()"/> Cleansers</label>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h4>Price Range</h4>
+        <div class="price-range">
+          <div class="pr-inputs">
+            <input type="number" id="priceMin" placeholder="Min" value="0" onchange="applyFilters()"/>
+            <span>—</span>
+            <input type="number" id="priceMax" placeholder="Max" value="200" onchange="applyFilters()"/>
+          </div>
+          <input type="range" id="priceSlider" min="0" max="200" value="200" oninput="syncPriceSlider(this.value)"/>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h4>Skin Concern</h4>
+        <div class="filter-group">
+          <label class="filter-check"><input type="checkbox" value="Anti-Aging" onchange="applyFilters()"/> Anti-Aging</label>
+          <label class="filter-check"><input type="checkbox" value="Brightening" onchange="applyFilters()"/> Brightening</label>
+          <label class="filter-check"><input type="checkbox" value="Hydrating" onchange="applyFilters()"/> Hydrating</label>
+          <label class="filter-check"><input type="checkbox" value="Acne" onchange="applyFilters()"/> Acne Control</label>
+          <label class="filter-check"><input type="checkbox" value="Sensitive" onchange="applyFilters()"/> Sensitive Skin</label>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <h4>Rating</h4>
+        <div class="filter-group">
+          <label class="filter-check"><input type="radio" name="rating" value="0" checked onchange="applyFilters()"/> All ratings</label>
+          <label class="filter-check"><input type="radio" name="rating" value="4" onchange="applyFilters()"/> ★★★★+ (4 & up)</label>
+          <label class="filter-check"><input type="radio" name="rating" value="4.5" onchange="applyFilters()"/> ★★★★★ (4.5+)</label>
+        </div>
+      </div>
+      <button class="btn btn-outline btn-full" onclick="resetFilters()">Reset Filters</button>
+    </aside>
+
+    <!-- MAIN SHOP -->
+    <div class="shop-main">
+      <div class="shop-header">
+        <div>
+          <h1 class="shop-title">All Products</h1>
+          <p id="shopResultCount" class="shop-count">Showing all products</p>
+        </div>
+        <div class="shop-controls">
+          <button class="filter-toggle-btn" onclick="toggleSidebar()">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="12" y1="18" x2="20" y2="18"/></svg>
+            Filters
+          </button>
+          <select id="sortSelect" onchange="applyFilters()" class="sort-select">
+            <option value="default">Featured</option>
+            <option value="price-low">Price: Low → High</option>
+            <option value="price-high">Price: High → Low</option>
+            <option value="rating">Highest Rated</option>
+            <option value="newest">Newest</option>
+          </select>
+          <div class="view-toggle">
+            <button class="vt-btn active" id="gridViewBtn" onclick="setView('grid')">⊞</button>
+            <button class="vt-btn" id="listViewBtn" onclick="setView('list')">☰</button>
+          </div>
+        </div>
+      </div>
+      <div class="products-grid" id="shopGrid"></div>
+      <div id="noResults" style="display:none;text-align:center;padding:4rem 2rem">
+        <p style="font-size:3rem">🔍</p>
+        <h3>No products found</h3>
+        <p style="color:var(--muted)">Try adjusting your filters</p>
+        <button class="btn btn-primary" onclick="resetFilters()" style="margin-top:1rem">Clear Filters</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     PAGE: PRODUCT DETAIL
+     ========================================================= -->
+<div class="page" id="page-product" style="display:none">
+  <div class="container">
+    <nav class="breadcrumb" id="breadcrumb"></nav>
+    <div class="product-detail" id="productDetail"></div>
+    <section class="section" style="padding-top:3rem">
+      <h2 class="section-title">You May Also Like</h2>
+      <div class="products-grid" id="relatedGrid"></div>
+    </section>
+  </div>
+</div>
+
+<!-- =========================================================
+     PAGE: WISHLIST
+     ========================================================= -->
+<div class="page" id="page-wishlist" style="display:none">
+  <div class="container">
+    <h1 class="page-title">My Wishlist</h1>
+    <div class="products-grid" id="wishlistGrid"><div class="empty-state"><p>💛</p><h3>Your wishlist is empty</h3><p>Save your favourite products here</p><button class="btn btn-primary" onclick="showPage('shop')">Explore Products</button></div></div>
+  </div>
+</div>
+
+<!-- =========================================================
+     PAGE: CHECKOUT
+     ========================================================= -->
+<div class="page" id="page-checkout" style="display:none">
+  <div class="container">
+    <h1 class="page-title">Checkout</h1>
+    <div class="checkout-grid">
+      <div class="checkout-form-col">
+        <!-- Steps -->
+        <div class="checkout-steps">
+          <div class="cs-step active" id="step1-tab">1 Shipping</div>
+          <div class="cs-arrow">→</div>
+          <div class="cs-step" id="step2-tab">2 Payment</div>
+          <div class="cs-arrow">→</div>
+          <div class="cs-step" id="step3-tab">3 Confirm</div>
+        </div>
+
+        <!-- Step 1: Shipping -->
+        <div id="checkoutStep1">
+          <h3 class="co-section-title">Shipping Information</h3>
+          <div class="form-row">
+            <div class="form-group"><label>First Name</label><input type="text" id="coFname" placeholder="Jane"/><span class="ferr" id="coFnameErr"></span></div>
+            <div class="form-group"><label>Last Name</label><input type="text" id="coLname" placeholder="Doe"/></div>
+          </div>
+          <div class="form-group"><label>Email</label><input type="email" id="coEmail" placeholder="you@example.com"/><span class="ferr" id="coEmailErr"></span></div>
+          <div class="form-group"><label>Phone</label><input type="tel" id="coPhone" placeholder="+1 234 567 890"/></div>
+          <div class="form-group"><label>Address</label><input type="text" id="coAddr" placeholder="123 Glow Street"/><span class="ferr" id="coAddrErr"></span></div>
+          <div class="form-row">
+            <div class="form-group"><label>City</label><input type="text" id="coCity" placeholder="New York"/></div>
+            <div class="form-group"><label>ZIP Code</label><input type="text" id="coZip" placeholder="10001"/></div>
+          </div>
+          <div class="form-group"><label>Country</label>
+            <select id="coCountry">
+              <option>United States</option><option>United Kingdom</option><option>Canada</option><option>Australia</option><option>Germany</option><option>France</option><option>Pakistan</option><option>Other</option>
+            </select>
+          </div>
+          <div class="shipping-methods">
+            <h4>Shipping Method</h4>
+            <label class="sm-option"><input type="radio" name="shipping" value="free" checked/><div class="sm-info"><span>Standard Shipping</span><span>5-7 business days</span></div><span>Free</span></label>
+            <label class="sm-option"><input type="radio" name="shipping" value="express"/><div class="sm-info"><span>Express Shipping</span><span>2-3 business days</span></div><span>$9.99</span></label>
+            <label class="sm-option"><input type="radio" name="shipping" value="overnight"/><div class="sm-info"><span>Overnight</span><span>Next business day</span></div><span>$24.99</span></label>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="goToStep(2)">Continue to Payment →</button>
+        </div>
+
+        <!-- Step 2: Payment -->
+        <div id="checkoutStep2" style="display:none">
+          <h3 class="co-section-title">Payment Details</h3>
+          <div class="payment-methods">
+            <label class="pm-option active-pm" onclick="selectPM(this)"><input type="radio" name="pm" value="card" checked/> 💳 Credit / Debit Card</label>
+            <label class="pm-option" onclick="selectPM(this)"><input type="radio" name="pm" value="paypal"/> 🅿 PayPal</label>
+            <label class="pm-option" onclick="selectPM(this)"><input type="radio" name="pm" value="apple"/> 🍎 Apple Pay</label>
+          </div>
+          <div id="cardFields">
+            <div class="form-group"><label>Cardholder Name</label><input type="text" id="coCardName" placeholder="Jane Doe"/></div>
+            <div class="form-group"><label>Card Number</label><input type="text" id="coCardNum" placeholder="4242 4242 4242 4242" maxlength="19" oninput="formatCard(this)"/></div>
+            <div class="form-row">
+              <div class="form-group"><label>Expiry</label><input type="text" id="coExpiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)"/></div>
+              <div class="form-group"><label>CVV</label><input type="text" id="coCVV" placeholder="123" maxlength="3"/></div>
+            </div>
+          </div>
+          <div class="form-group coupon-row">
+            <label>Coupon Code</label>
+            <div class="coupon-input">
+              <input type="text" id="couponCode" placeholder="GLOW20"/>
+              <button class="btn btn-outline" onclick="applyCoupon()">Apply</button>
+            </div>
+            <span class="ferr" id="couponMsg"></span>
+          </div>
+          <div style="display:flex;gap:1rem">
+            <button class="btn btn-outline" onclick="goToStep(1)">← Back</button>
+            <button class="btn btn-primary" style="flex:1" onclick="goToStep(3)">Review Order →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Confirm -->
+        <div id="checkoutStep3" style="display:none">
+          <h3 class="co-section-title">Order Review</h3>
+          <div id="orderReview"></div>
+          <div style="display:flex;gap:1rem;margin-top:1.5rem">
+            <button class="btn btn-outline" onclick="goToStep(2)">← Back</button>
+            <button class="btn btn-primary" style="flex:1" onclick="placeOrder()">Place Order 🎉</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ORDER SUMMARY SIDEBAR -->
+      <div class="order-summary-col">
+        <div class="order-summary-box">
+          <h3>Order Summary</h3>
+          <div id="coCartItems"></div>
+          <div class="co-totals" id="coTotals"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     PAGE: ORDERS
+     ========================================================= -->
+<div class="page" id="page-orders" style="display:none">
+  <div class="container">
+    <h1 class="page-title">My Orders</h1>
+    <div id="ordersList"></div>
+  </div>
+</div>
+
+<!-- =========================================================
+     PAGE: ORDER SUCCESS
+     ========================================================= -->
+<div class="page" id="page-success" style="display:none">
+  <div class="container">
+    <div class="success-box">
+      <div class="success-icon">✓</div>
+      <h1>Order Confirmed!</h1>
+      <p id="successOrderId"></p>
+      <p>Thank you for your purchase. You'll receive a confirmation email shortly.</p>
+      <div class="success-actions">
+        <button class="btn btn-primary" onclick="showPage('orders')">Track Order</button>
+        <button class="btn btn-outline" onclick="showPage('shop')">Continue Shopping</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     PAGE: ADMIN
+     ========================================================= -->
+<div class="page" id="page-admin" style="display:none">
+  <div class="admin-layout">
+    <!-- ADMIN SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="admin-brand">GLOW <span>Admin</span></div>
+      <nav class="admin-nav">
+        <button class="an-btn active" onclick="showAdminTab('overview')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Overview
+        </button>
+        <button class="an-btn" onclick="showAdminTab('products')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg> Products
+        </button>
+        <button class="an-btn" onclick="showAdminTab('orders')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg> Orders
+        </button>
+        <button class="an-btn" onclick="showAdminTab('customers')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Customers
+        </button>
+        <button class="an-btn" onclick="showAdminTab('add-product')">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Add Product
+        </button>
+      </nav>
+      <button class="an-btn back-btn" onclick="showPage('home')" style="margin-top:auto">
+        ← Back to Store
+      </button>
+    </aside>
+
+    <!-- ADMIN CONTENT -->
+    <div class="admin-content">
+
+      <!-- OVERVIEW -->
+      <div id="admin-overview" class="admin-tab">
+        <div class="admin-page-header">
+          <h1>Dashboard Overview</h1>
+          <p id="adminDate"></p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="sc-icon sc-green">💰</div><div class="sc-body"><p class="sc-label">Total Revenue</p><h3 id="totalRevenue">$0</h3><span class="sc-change up">+12.5% this month</span></div></div>
+          <div class="stat-card"><div class="sc-icon sc-pink">🛍️</div><div class="sc-body"><p class="sc-label">Total Orders</p><h3 id="totalOrders">0</h3><span class="sc-change up">+8.2% this month</span></div></div>
+          <div class="stat-card"><div class="sc-icon sc-purple">👥</div><div class="sc-body"><p class="sc-label">Customers</p><h3 id="totalCustomers">0</h3><span class="sc-change up">+5.1% this month</span></div></div>
+          <div class="stat-card"><div class="sc-icon sc-orange">📦</div><div class="sc-body"><p class="sc-label">Products</p><h3 id="totalProducts">0</h3><span class="sc-change">Active listings</span></div></div>
+        </div>
+        <div class="admin-two-col">
+          <div class="admin-card">
+            <h3>Recent Orders</h3>
+            <div id="adminRecentOrders"></div>
+          </div>
+          <div class="admin-card">
+            <h3>Top Products</h3>
+            <div id="adminTopProducts"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS -->
+      <div id="admin-products" class="admin-tab" style="display:none">
+        <div class="admin-page-header">
+          <h1>Products</h1>
+          <button class="btn btn-primary" onclick="showAdminTab('add-product')">+ Add Product</button>
+        </div>
+        <div class="admin-card">
+          <div class="table-toolbar">
+            <input type="text" placeholder="Search products…" oninput="filterAdminProducts(this.value)" class="table-search"/>
+          </div>
+          <div class="table-wrap"><table class="admin-table" id="adminProductsTable">
+            <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Rating</th><th>Actions</th></tr></thead>
+            <tbody id="adminProductsBody"></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- ORDERS -->
+      <div id="admin-orders" class="admin-tab" style="display:none">
+        <div class="admin-page-header"><h1>Orders</h1></div>
+        <div class="admin-card">
+          <div class="table-wrap"><table class="admin-table">
+            <thead><tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th></tr></thead>
+            <tbody id="adminOrdersBody"></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- CUSTOMERS -->
+      <div id="admin-customers" class="admin-tab" style="display:none">
+        <div class="admin-page-header"><h1>Customers</h1></div>
+        <div class="admin-card">
+          <div class="table-wrap"><table class="admin-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Joined</th><th>Orders</th><th>Total Spent</th></tr></thead>
+            <tbody id="adminCustomersBody"></tbody>
+          </table></div>
+        </div>
+      </div>
+
+      <!-- ADD PRODUCT -->
+      <div id="admin-add-product" class="admin-tab" style="display:none">
+        <div class="admin-page-header"><h1 id="addProductTitle">Add New Product</h1></div>
+        <div class="admin-card">
+          <div class="add-product-form">
+            <input type="hidden" id="editProductId"/>
+            <div class="form-row">
+              <div class="form-group"><label>Product Name *</label><input type="text" id="apName" placeholder="e.g. Vitamin C Brightening Serum"/></div>
+              <div class="form-group"><label>Category *</label>
+                <select id="apCategory">
+                  <option>Serum</option><option>Moisturizer</option><option>Sunscreen</option><option>Mask</option><option>Toner</option><option>Eye Care</option><option>Cleanser</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Price ($) *</label><input type="number" id="apPrice" placeholder="49.99" step="0.01"/></div>
+              <div class="form-group"><label>Original Price ($)</label><input type="number" id="apOrigPrice" placeholder="69.99" step="0.01"/></div>
+            </div>
+            <div class="form-row">
+              <div class="form-group"><label>Stock Quantity</label><input type="number" id="apStock" placeholder="100"/></div>
+              <div class="form-group"><label>Skin Concern</label>
+                <select id="apConcern">
+                  <option>Brightening</option><option>Anti-Aging</option><option>Hydrating</option><option>Acne</option><option>Sensitive</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group"><label>Short Description *</label><textarea id="apDesc" rows="3" placeholder="Describe the product…"></textarea></div>
+            <div class="form-group"><label>Key Ingredients (comma separated)</label><input type="text" id="apIngredients" placeholder="Vitamin C, Hyaluronic Acid, Niacinamide"/></div>
+            <div class="form-group">
+              <label>Badge</label>
+              <select id="apBadge">
+                <option value="">None</option><option value="Best Seller">Best Seller</option><option value="New">New</option><option value="Sale">Sale</option><option value="Limited">Limited</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Featured on Homepage</label>
+              <label class="toggle-switch"><input type="checkbox" id="apFeatured"/><span class="ts-slider"></span></label>
+            </div>
+            <div class="ap-actions">
+              <button class="btn btn-outline" onclick="cancelEditProduct()">Cancel</button>
+              <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /admin-content -->
+  </div><!-- /admin-layout -->
+</div><!-- /page-admin -->
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer" id="mainFooter">
+  <div class="footer-top">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="logo" style="font-size:2rem;margin-bottom:1rem">GL<em>OW</em></div>
+          <p>Science-backed beauty for every skin type. Clean, cruelty-free and made with love.</p>
+          <div class="social-row">
+            <a href="#" class="social-icon">ig</a>
+            <a href="#" class="social-icon">tt</a>
+            <a href="#" class="social-icon">fb</a>
+            <a href="#" class="social-icon">yt</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Shop</h5>
+          <a href="#" onclick="showPage('shop')">All Products</a>
+          <a href="#" onclick="filterAndGo('Serum')">Serums</a>
+          <a href="#" onclick="filterAndGo('Moisturizer')">Moisturizers</a>
+          <a href="#" onclick="filterAndGo('Sunscreen')">Sunscreen</a>
+          <a href="#" onclick="filterAndGo('Mask')">Masks</a>
+        </div>
+        <div class="footer-col">
+          <h5>Help</h5>
+          <a href="#">FAQ</a>
+          <a href="#">Shipping Policy</a>
+          <a href="#">Returns</a>
+          <a href="#">Track Order</a>
+          <a href="#">Contact Us</a>
+        </div>
+        <div class="footer-col">
+          <h5>Company</h5>
+          <a href="#">About Us</a>
+          <a href="#">Blog</a>
+          <a href="#">Press</a>
+          <a href="#">Careers</a>
+          <a href="#">Sustainability</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <p>© 2024 GLOW Beauty. All rights reserved.</p>
+      <div class="footer-pay">
+        <span class="pay-icon">VISA</span>
+        <span class="pay-icon">MC</span>
+        <span class="pay-icon">AMEX</span>
+        <span class="pay-icon">PayPal</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
