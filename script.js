@@ -1008,7 +1008,19 @@ function saveProduct() {
     });
     showToast('Product added ✓');
   }
+ saveState();
+  renderFeatured();
+  renderShop();
+  renderAdminProductsTable();
 
+  clearProductForm();
+
+  document.getElementById('editProductId').value = '';
+
+  document.getElementById('addProductTitle').textContent = 'Add New Product';
+
+  updateAdminStats();
+}
   clearProductForm();
   document.getElementById('editProductId').value = '';
   document.getElementById('addProductTitle').textContent = 'Add New Product';
