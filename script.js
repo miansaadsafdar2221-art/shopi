@@ -1,3 +1,4 @@
+
 /* ==========================================================
    GLOW — Beauty & Skincare E-Commerce
    script.js — Full Application Logic
