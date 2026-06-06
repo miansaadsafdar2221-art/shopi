@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>GLOW — Beauty & Skincare</title>
+<title>Saad Beauty Care</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
@@ -11,27 +11,24 @@
 </head>
 <body>
 
-<!-- ========== TOAST ========== -->
 <div id="toast" class="toast"></div>
-
-<!-- ========== OVERLAY ========== -->
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-<!-- ========== NAVBAR ========== -->
+<!-- NAVBAR -->
 <header class="header" id="header">
   <div class="header-top">
-    <span>✦ Free shipping on orders over $50 &nbsp;|&nbsp; Use code <strong>GLOW20</strong> for 20% off ✦</span>
+    <span>✦ Free shipping on orders over $50 &nbsp;|&nbsp; Use code <strong>SAAD20</strong> for 20% off ✦</span>
   </div>
   <nav class="navbar">
     <button class="hamburger" id="hamburger" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
-    <a href="#" class="logo" onclick="showPage('home')">GL<em>OW</em></a>
+    <a href="#" class="logo" onclick="showPage('home')">Saad <em>Beauty Care</em></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#" onclick="showPage('home')">Home</a></li>
       <li><a href="#" onclick="showPage('shop')">Shop</a></li>
-      <li><a href="#" onclick="showPage('home'); scrollTo('#collections')">Collections</a></li>
-      <li><a href="#" onclick="showPage('home'); scrollTo('#about')">About</a></li>
+      <li><a href="#" onclick="showPage('home'); scrollToEl('#collections')">Collections</a></li>
+      <li><a href="#" onclick="showPage('home'); scrollToEl('#about')">About</a></li>
     </ul>
     <div class="nav-actions">
       <button class="icon-btn" onclick="toggleSearch()" aria-label="Search">
@@ -48,12 +45,11 @@
       <button class="icon-btn" onclick="toggleAuth()" aria-label="Account">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       </button>
-      <button class="icon-btn admin-btn" onclick="showPage('admin')" title="Admin Dashboard">
+      <button class="icon-btn admin-btn" onclick="showPage('admin')" title="Admin">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
       </button>
     </div>
   </nav>
-  <!-- SEARCH BAR -->
   <div class="search-bar" id="searchBar">
     <div class="search-inner">
       <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -64,7 +60,7 @@
   </div>
 </header>
 
-<!-- ========== CART DRAWER ========== -->
+<!-- CART DRAWER -->
 <div class="drawer cart-drawer" id="cartDrawer">
   <div class="drawer-header">
     <h3>Your Cart <span id="cartCount">(0)</span></h3>
@@ -82,7 +78,7 @@
   </div>
 </div>
 
-<!-- ========== AUTH DRAWER ========== -->
+<!-- AUTH DRAWER -->
 <div class="drawer auth-drawer" id="authDrawer">
   <div class="drawer-header">
     <h3 id="authTitle">Welcome Back</h3>
@@ -112,9 +108,7 @@
   </div>
 </div>
 
-<!-- =========================================================
-     PAGE: HOME
-     ========================================================= -->
+<!-- ===== PAGE: HOME ===== -->
 <div class="page" id="page-home">
 
   <!-- HERO -->
@@ -128,7 +122,7 @@
       <p class="hero-sub">Luxurious, science-backed skincare formulated for every skin type. Clean ingredients. Real results.</p>
       <div class="hero-actions">
         <button class="btn btn-primary btn-lg" onclick="showPage('shop')">Shop Now</button>
-        <button class="btn btn-ghost btn-lg" onclick="scrollTo('#collections')">Explore Collections</button>
+        <button class="btn btn-ghost btn-lg" onclick="scrollToEl('#collections')">Explore Collections</button>
       </div>
       <div class="hero-trust">
         <span>★★★★★ 4.9/5</span><span>|</span>
@@ -162,12 +156,13 @@
       <span>VITAMIN C SERUM</span><span>✦</span><span>RETINOL CREAM</span><span>✦</span>
       <span>HYALURONIC TONER</span><span>✦</span><span>SPF 50 SUNSCREEN</span><span>✦</span>
       <span>GLOW MASK</span><span>✦</span><span>EYE SERUM</span><span>✦</span>
+      <span>ROSE WATER MIST</span><span>✦</span><span>COLLAGEN BOOSTER</span><span>✦</span>
       <span>VITAMIN C SERUM</span><span>✦</span><span>RETINOL CREAM</span><span>✦</span>
       <span>HYALURONIC TONER</span><span>✦</span><span>SPF 50 SUNSCREEN</span><span>✦</span>
     </div>
   </div>
 
-  <!-- FEATURED PRODUCTS -->
+  <!-- HORIZONTAL SCROLL PRODUCTS (like recording) -->
   <section class="section" id="featured">
     <div class="container">
       <div class="section-header">
@@ -177,11 +172,12 @@
         </div>
         <button class="btn btn-outline" onclick="showPage('shop')">View All →</button>
       </div>
-      <div class="products-grid" id="featuredGrid"></div>
+      <!-- Horizontal scroll row -->
+      <div class="products-row-scroll" id="featuredRow"></div>
     </div>
   </section>
 
-  <!-- COLLECTIONS -->
+  <!-- COLLECTIONS — square cards -->
   <section class="section collections-sec" id="collections">
     <div class="container">
       <p class="section-eyebrow" style="text-align:center">Categories</p>
@@ -199,6 +195,18 @@
         <div class="collection-card cc4" onclick="filterAndGo('Mask')">
           <div class="cc-content"><h3>Masks</h3><p>Intensive weekly rituals</p><span>Shop Now →</span></div>
         </div>
+        <div class="collection-card cc5" onclick="filterAndGo('Toner')">
+          <div class="cc-content"><h3>Toners</h3><p>Balance & prep your skin</p><span>Shop Now →</span></div>
+        </div>
+        <div class="collection-card cc6" onclick="filterAndGo('Eye Care')">
+          <div class="cc-content"><h3>Eye Care</h3><p>Brighten & depuff instantly</p><span>Shop Now →</span></div>
+        </div>
+        <div class="collection-card cc7" onclick="filterAndGo('Cleanser')">
+          <div class="cc-content"><h3>Cleansers</h3><p>Gentle cleanse, fresh start</p><span>Shop Now →</span></div>
+        </div>
+        <div class="collection-card cc8" onclick="filterAndGo('Lip Care')">
+          <div class="cc-content"><h3>Lip Care</h3><p>Plump, nourish, protect</p><span>Shop Now →</span></div>
+        </div>
       </div>
     </div>
   </section>
@@ -207,31 +215,15 @@
   <section class="section benefits-sec">
     <div class="container">
       <div class="benefits-grid">
-        <div class="benefit-card">
-          <div class="bc-icon">🌿</div>
-          <h4>Clean Ingredients</h4>
-          <p>Formulated without parabens, sulfates or artificial fragrances.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="bc-icon">🧪</div>
-          <h4>Dermatologist Tested</h4>
-          <p>Every product is clinically tested and dermatologist-approved.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="bc-icon">🐰</div>
-          <h4>Cruelty-Free</h4>
-          <p>100% vegan and cruelty-free certified by PETA & Leaping Bunny.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="bc-icon">🚚</div>
-          <h4>Free Shipping</h4>
-          <p>Complimentary shipping on all orders over $50 worldwide.</p>
-        </div>
+        <div class="benefit-card"><div class="bc-icon">🌿</div><h4>Clean Ingredients</h4><p>Formulated without parabens, sulfates or artificial fragrances.</p></div>
+        <div class="benefit-card"><div class="bc-icon">🧪</div><h4>Dermatologist Tested</h4><p>Every product is clinically tested and dermatologist-approved.</p></div>
+        <div class="benefit-card"><div class="bc-icon">🐰</div><h4>Cruelty-Free</h4><p>100% vegan and cruelty-free certified by PETA & Leaping Bunny.</p></div>
+        <div class="benefit-card"><div class="bc-icon">🚚</div><h4>Free Shipping</h4><p>Complimentary shipping on all orders over $50 worldwide.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- ABOUT / BRAND STORY -->
+  <!-- ABOUT -->
   <section class="section about-sec" id="about">
     <div class="container">
       <div class="about-grid">
@@ -243,12 +235,12 @@
         <div class="about-text">
           <p class="section-eyebrow">Our Story</p>
           <h2 class="section-title">Born from a passion<br/>for <em>real beauty</em></h2>
-          <p>GLOW was founded in 2018 by a team of cosmetic chemists and skincare enthusiasts who believed the world deserved better beauty. We combine the latest in dermatology with time-tested botanical ingredients.</p>
+          <p>Saad Beauty Care was founded by a team of cosmetic chemists and skincare enthusiasts who believed the world deserved better beauty. We combine the latest in dermatology with time-tested botanical ingredients.</p>
           <p>Our philosophy is simple: beautiful skin starts with what you put on it. No fillers. No shortcuts. Just pure, potent formulations that work.</p>
           <div class="about-stats">
             <div><strong>6+</strong><span>Years of Research</span></div>
             <div><strong>50K+</strong><span>Happy Customers</span></div>
-            <div><strong>30+</strong><span>Products</span></div>
+            <div><strong>40+</strong><span>Products</span></div>
           </div>
         </div>
       </div>
@@ -275,12 +267,9 @@
 
 </div><!-- /page-home -->
 
-<!-- =========================================================
-     PAGE: SHOP
-     ========================================================= -->
+<!-- ===== PAGE: SHOP ===== -->
 <div class="page" id="page-shop" style="display:none">
   <div class="shop-layout">
-    <!-- SIDEBAR -->
     <aside class="shop-sidebar" id="shopSidebar">
       <div class="sidebar-section">
         <h4>Category</h4>
@@ -293,6 +282,8 @@
           <label class="filter-check"><input type="checkbox" value="Toner" onchange="applyFilters()"/> Toners</label>
           <label class="filter-check"><input type="checkbox" value="Eye Care" onchange="applyFilters()"/> Eye Care</label>
           <label class="filter-check"><input type="checkbox" value="Cleanser" onchange="applyFilters()"/> Cleansers</label>
+          <label class="filter-check"><input type="checkbox" value="Lip Care" onchange="applyFilters()"/> Lip Care</label>
+          <label class="filter-check"><input type="checkbox" value="Body Care" onchange="applyFilters()"/> Body Care</label>
         </div>
       </div>
       <div class="sidebar-section">
@@ -326,8 +317,6 @@
       </div>
       <button class="btn btn-outline btn-full" onclick="resetFilters()">Reset Filters</button>
     </aside>
-
-    <!-- MAIN SHOP -->
     <div class="shop-main">
       <div class="shop-header">
         <div>
@@ -363,9 +352,7 @@
   </div>
 </div>
 
-<!-- =========================================================
-     PAGE: PRODUCT DETAIL
-     ========================================================= -->
+<!-- ===== PAGE: PRODUCT DETAIL ===== -->
 <div class="page" id="page-product" style="display:none">
   <div class="container">
     <nav class="breadcrumb" id="breadcrumb"></nav>
@@ -377,25 +364,22 @@
   </div>
 </div>
 
-<!-- =========================================================
-     PAGE: WISHLIST
-     ========================================================= -->
+<!-- ===== PAGE: WISHLIST ===== -->
 <div class="page" id="page-wishlist" style="display:none">
   <div class="container">
     <h1 class="page-title">My Wishlist</h1>
-    <div class="products-grid" id="wishlistGrid"><div class="empty-state"><p>💛</p><h3>Your wishlist is empty</h3><p>Save your favourite products here</p><button class="btn btn-primary" onclick="showPage('shop')">Explore Products</button></div></div>
+    <div class="products-grid" id="wishlistGrid">
+      <div class="empty-state"><p>💛</p><h3>Your wishlist is empty</h3><p>Save your favourite products here</p><button class="btn btn-primary" onclick="showPage('shop')">Explore Products</button></div>
+    </div>
   </div>
 </div>
 
-<!-- =========================================================
-     PAGE: CHECKOUT
-     ========================================================= -->
+<!-- ===== PAGE: CHECKOUT ===== -->
 <div class="page" id="page-checkout" style="display:none">
   <div class="container">
     <h1 class="page-title">Checkout</h1>
     <div class="checkout-grid">
       <div class="checkout-form-col">
-        <!-- Steps -->
         <div class="checkout-steps">
           <div class="cs-step active" id="step1-tab">1 Shipping</div>
           <div class="cs-arrow">→</div>
@@ -403,8 +387,6 @@
           <div class="cs-arrow">→</div>
           <div class="cs-step" id="step3-tab">3 Confirm</div>
         </div>
-
-        <!-- Step 1: Shipping -->
         <div id="checkoutStep1">
           <h3 class="co-section-title">Shipping Information</h3>
           <div class="form-row">
@@ -413,7 +395,7 @@
           </div>
           <div class="form-group"><label>Email</label><input type="email" id="coEmail" placeholder="you@example.com"/><span class="ferr" id="coEmailErr"></span></div>
           <div class="form-group"><label>Phone</label><input type="tel" id="coPhone" placeholder="+1 234 567 890"/></div>
-          <div class="form-group"><label>Address</label><input type="text" id="coAddr" placeholder="123 Glow Street"/><span class="ferr" id="coAddrErr"></span></div>
+          <div class="form-group"><label>Address</label><input type="text" id="coAddr" placeholder="123 Beauty Street"/><span class="ferr" id="coAddrErr"></span></div>
           <div class="form-row">
             <div class="form-group"><label>City</label><input type="text" id="coCity" placeholder="New York"/></div>
             <div class="form-group"><label>ZIP Code</label><input type="text" id="coZip" placeholder="10001"/></div>
@@ -431,8 +413,6 @@
           </div>
           <button class="btn btn-primary btn-full" onclick="goToStep(2)">Continue to Payment →</button>
         </div>
-
-        <!-- Step 2: Payment -->
         <div id="checkoutStep2" style="display:none">
           <h3 class="co-section-title">Payment Details</h3>
           <div class="payment-methods">
@@ -451,7 +431,7 @@
           <div class="form-group coupon-row">
             <label>Coupon Code</label>
             <div class="coupon-input">
-              <input type="text" id="couponCode" placeholder="GLOW20"/>
+              <input type="text" id="couponCode" placeholder="SAAD20"/>
               <button class="btn btn-outline" onclick="applyCoupon()">Apply</button>
             </div>
             <span class="ferr" id="couponMsg"></span>
@@ -461,8 +441,6 @@
             <button class="btn btn-primary" style="flex:1" onclick="goToStep(3)">Review Order →</button>
           </div>
         </div>
-
-        <!-- Step 3: Confirm -->
         <div id="checkoutStep3" style="display:none">
           <h3 class="co-section-title">Order Review</h3>
           <div id="orderReview"></div>
@@ -472,8 +450,6 @@
           </div>
         </div>
       </div>
-
-      <!-- ORDER SUMMARY SIDEBAR -->
       <div class="order-summary-col">
         <div class="order-summary-box">
           <h3>Order Summary</h3>
@@ -485,9 +461,7 @@
   </div>
 </div>
 
-<!-- =========================================================
-     PAGE: ORDERS
-     ========================================================= -->
+<!-- ===== PAGE: ORDERS ===== -->
 <div class="page" id="page-orders" style="display:none">
   <div class="container">
     <h1 class="page-title">My Orders</h1>
@@ -495,9 +469,7 @@
   </div>
 </div>
 
-<!-- =========================================================
-     PAGE: ORDER SUCCESS
-     ========================================================= -->
+<!-- ===== PAGE: SUCCESS ===== -->
 <div class="page" id="page-success" style="display:none">
   <div class="container">
     <div class="success-box">
@@ -513,45 +485,33 @@
   </div>
 </div>
 
-<!-- =========================================================
-     PAGE: ADMIN
-     ========================================================= -->
+<!-- ===== PAGE: ADMIN ===== -->
 <div class="page" id="page-admin" style="display:none">
   <div class="admin-layout">
-    <!-- ADMIN SIDEBAR -->
     <aside class="admin-sidebar">
-      <div class="admin-brand">GLOW <span>Admin</span></div>
+      <div class="admin-brand">Saad <span>Beauty</span></div>
       <nav class="admin-nav">
-        <button class="an-btn active" onclick="showAdminTab('overview')">
+        <button class="an-btn active" onclick="showAdminTab('overview',event)">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Overview
         </button>
-        <button class="an-btn" onclick="showAdminTab('products')">
+        <button class="an-btn" onclick="showAdminTab('products',event)">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/></svg> Products
         </button>
-        <button class="an-btn" onclick="showAdminTab('orders')">
+        <button class="an-btn" onclick="showAdminTab('orders',event)">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg> Orders
         </button>
-        <button class="an-btn" onclick="showAdminTab('customers')">
-          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Customers
+        <button class="an-btn" onclick="showAdminTab('customers',event)">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Customers
         </button>
-        <button class="an-btn" onclick="showAdminTab('add-product')">
+        <button class="an-btn" onclick="showAdminTab('add-product',event)">
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg> Add Product
         </button>
       </nav>
-      <button class="an-btn back-btn" onclick="showPage('home')" style="margin-top:auto">
-        ← Back to Store
-      </button>
+      <button class="an-btn back-btn" onclick="showPage('home')" style="margin-top:auto">← Back to Store</button>
     </aside>
-
-    <!-- ADMIN CONTENT -->
     <div class="admin-content">
-
-      <!-- OVERVIEW -->
       <div id="admin-overview" class="admin-tab">
-        <div class="admin-page-header">
-          <h1>Dashboard Overview</h1>
-          <p id="adminDate"></p>
-        </div>
+        <div class="admin-page-header"><h1>Dashboard Overview</h1><p id="adminDate"></p></div>
         <div class="stats-grid">
           <div class="stat-card"><div class="sc-icon sc-green">💰</div><div class="sc-body"><p class="sc-label">Total Revenue</p><h3 id="totalRevenue">$0</h3><span class="sc-change up">+12.5% this month</span></div></div>
           <div class="stat-card"><div class="sc-icon sc-pink">🛍️</div><div class="sc-body"><p class="sc-label">Total Orders</p><h3 id="totalOrders">0</h3><span class="sc-change up">+8.2% this month</span></div></div>
@@ -559,35 +519,20 @@
           <div class="stat-card"><div class="sc-icon sc-orange">📦</div><div class="sc-body"><p class="sc-label">Products</p><h3 id="totalProducts">0</h3><span class="sc-change">Active listings</span></div></div>
         </div>
         <div class="admin-two-col">
-          <div class="admin-card">
-            <h3>Recent Orders</h3>
-            <div id="adminRecentOrders"></div>
-          </div>
-          <div class="admin-card">
-            <h3>Top Products</h3>
-            <div id="adminTopProducts"></div>
-          </div>
+          <div class="admin-card"><h3>Recent Orders</h3><div id="adminRecentOrders"></div></div>
+          <div class="admin-card"><h3>Top Products</h3><div id="adminTopProducts"></div></div>
         </div>
       </div>
-
-      <!-- PRODUCTS -->
       <div id="admin-products" class="admin-tab" style="display:none">
-        <div class="admin-page-header">
-          <h1>Products</h1>
-          <button class="btn btn-primary" onclick="showAdminTab('add-product')">+ Add Product</button>
-        </div>
+        <div class="admin-page-header"><h1>Products</h1><button class="btn btn-primary" onclick="showAdminTab('add-product',event)">+ Add Product</button></div>
         <div class="admin-card">
-          <div class="table-toolbar">
-            <input type="text" placeholder="Search products…" oninput="filterAdminProducts(this.value)" class="table-search"/>
-          </div>
+          <div class="table-toolbar"><input type="text" placeholder="Search products…" oninput="filterAdminProducts(this.value)" class="table-search"/></div>
           <div class="table-wrap"><table class="admin-table" id="adminProductsTable">
             <thead><tr><th>Product</th><th>Category</th><th>Price</th><th>Stock</th><th>Rating</th><th>Actions</th></tr></thead>
             <tbody id="adminProductsBody"></tbody>
           </table></div>
         </div>
       </div>
-
-      <!-- ORDERS -->
       <div id="admin-orders" class="admin-tab" style="display:none">
         <div class="admin-page-header"><h1>Orders</h1></div>
         <div class="admin-card">
@@ -597,8 +542,6 @@
           </table></div>
         </div>
       </div>
-
-      <!-- CUSTOMERS -->
       <div id="admin-customers" class="admin-tab" style="display:none">
         <div class="admin-page-header"><h1>Customers</h1></div>
         <div class="admin-card">
@@ -608,8 +551,6 @@
           </table></div>
         </div>
       </div>
-
-      <!-- ADD PRODUCT -->
       <div id="admin-add-product" class="admin-tab" style="display:none">
         <div class="admin-page-header"><h1 id="addProductTitle">Add New Product</h1></div>
         <div class="admin-card">
@@ -619,7 +560,7 @@
               <div class="form-group"><label>Product Name *</label><input type="text" id="apName" placeholder="e.g. Vitamin C Brightening Serum"/></div>
               <div class="form-group"><label>Category *</label>
                 <select id="apCategory">
-                  <option>Serum</option><option>Moisturizer</option><option>Sunscreen</option><option>Mask</option><option>Toner</option><option>Eye Care</option><option>Cleanser</option>
+                  <option>Serum</option><option>Moisturizer</option><option>Sunscreen</option><option>Mask</option><option>Toner</option><option>Eye Care</option><option>Cleanser</option><option>Lip Care</option><option>Body Care</option>
                 </select>
               </div>
             </div>
@@ -637,8 +578,7 @@
             </div>
             <div class="form-group"><label>Short Description *</label><textarea id="apDesc" rows="3" placeholder="Describe the product…"></textarea></div>
             <div class="form-group"><label>Key Ingredients (comma separated)</label><input type="text" id="apIngredients" placeholder="Vitamin C, Hyaluronic Acid, Niacinamide"/></div>
-            <div class="form-group">
-              <label>Badge</label>
+            <div class="form-group"><label>Badge</label>
               <select id="apBadge">
                 <option value="">None</option><option value="Best Seller">Best Seller</option><option value="New">New</option><option value="Sale">Sale</option><option value="Limited">Limited</option>
               </select>
@@ -654,18 +594,17 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
-    </div><!-- /admin-content -->
-  </div><!-- /admin-layout -->
-</div><!-- /page-admin -->
-
-<!-- ========== FOOTER ========== -->
+<!-- FOOTER -->
 <footer class="footer" id="mainFooter">
   <div class="footer-top">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <div class="logo" style="font-size:2rem;margin-bottom:1rem">GL<em>OW</em></div>
+          <div class="logo" style="font-size:1.5rem;margin-bottom:1rem">Saad <em>Beauty Care</em></div>
           <p>Science-backed beauty for every skin type. Clean, cruelty-free and made with love.</p>
           <div class="social-row">
             <a href="#" class="social-icon">ig</a>
@@ -703,7 +642,7 @@
   </div>
   <div class="footer-bottom">
     <div class="container">
-      <p>© 2024 GLOW Beauty. All rights reserved.</p>
+      <p>© 2024 Saad Beauty Care. All rights reserved.</p>
       <div class="footer-pay">
         <span class="pay-icon">VISA</span>
         <span class="pay-icon">MC</span>

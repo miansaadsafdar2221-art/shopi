@@ -1,54 +1,50 @@
-
 /* ==========================================================
-   GLOW — Beauty & Skincare E-Commerce
-   script.js — Full Application Logic
+   Saad Beauty Care — script.js
    ========================================================== */
 
-/* ========================================================
-   DATA — Products
-   ======================================================== */
+/* ======== PRODUCTS DATA ======== */
 let products = [
-  { id: 1, name: "Vitamin C Brightening Serum", category: "Serum", price: 48, origPrice: 68, rating: 4.9, reviews: 312, concern: "Brightening", badge: "Best Seller", featured: true, stock: 85, emoji: "✨", visual: "pv-1", ingredients: ["Vitamin C", "Niacinamide", "Ferulic Acid"], desc: "A powerful brightening serum packed with 15% Vitamin C and Niacinamide to visibly reduce dark spots, even skin tone and deliver a radiant, glass-skin glow. Suitable for all skin types." },
-  { id: 2, name: "Hyaluronic Acid Toner", category: "Toner", price: 32, origPrice: null, rating: 4.7, reviews: 189, concern: "Hydrating", badge: "New", featured: true, stock: 120, emoji: "💧", visual: "pv-2", ingredients: ["Hyaluronic Acid", "Centella Asiatica", "Aloe Vera"], desc: "A lightweight, deeply hydrating toner formulated with multi-molecular hyaluronic acid that penetrates all layers of the skin for lasting plump, dewy hydration." },
-  { id: 3, name: "Retinol Night Cream", category: "Moisturizer", price: 65, origPrice: 85, rating: 4.8, reviews: 241, concern: "Anti-Aging", badge: "Sale", featured: true, stock: 42, emoji: "🌙", visual: "pv-3", ingredients: ["Retinol 0.3%", "Peptides", "Squalane"], desc: "A luxurious night cream enriched with encapsulated retinol and skin-firming peptides to reduce fine lines, smooth texture and restore youthful radiance while you sleep." },
-  { id: 4, name: "SPF 50+ Sunscreen Fluid", category: "Sunscreen", price: 38, origPrice: null, rating: 4.6, reviews: 408, concern: "Sensitive", badge: "Best Seller", featured: true, stock: 200, emoji: "☀️", visual: "pv-4", ingredients: ["Zinc Oxide", "Tinosorb M", "Niacinamide"], desc: "An ultra-lightweight, invisible SPF 50+ fluid that protects against UVA/UVB rays without white cast. Enriched with antioxidants for a smooth, matte finish." },
-  { id: 5, name: "Rose Glow Sleeping Mask", category: "Mask", price: 52, origPrice: 70, rating: 4.9, reviews: 177, concern: "Hydrating", badge: "Sale", featured: true, stock: 60, emoji: "🌹", visual: "pv-5", ingredients: ["Rosehip Oil", "Ceramides", "Bakuchiol"], desc: "A velvety overnight mask infused with rosehip oil and ceramides that deeply nourishes and repairs skin's barrier while you sleep, leaving skin soft and luminous by morning." },
-  { id: 6, name: "Niacinamide Pore Serum", category: "Serum", price: 36, origPrice: null, rating: 4.5, reviews: 295, concern: "Acne", badge: "", featured: true, stock: 95, emoji: "🔬", visual: "pv-6", ingredients: ["Niacinamide 10%", "Zinc PCA", "Salicylic Acid"], desc: "A targeted pore-minimising serum with 10% Niacinamide and Zinc PCA to control excess sebum, reduce enlarged pores and refine skin texture for a smooth, airbrushed complexion." },
-  { id: 7, name: "Peptide Eye Cream", category: "Eye Care", price: 58, origPrice: 78, rating: 4.7, reviews: 134, concern: "Anti-Aging", badge: "New", featured: false, stock: 38, emoji: "👁️", visual: "pv-7", ingredients: ["Argireline", "Caffeine", "Hyaluronic Acid"], desc: "A potent eye cream infused with Argireline peptides and caffeine to smooth crow's feet, depuff under-eyes and brighten dark circles for a wide-awake, youthful look." },
-  { id: 8, name: "Gentle Milky Cleanser", category: "Cleanser", price: 28, origPrice: null, rating: 4.6, reviews: 221, concern: "Sensitive", badge: "", featured: false, stock: 150, emoji: "🫧", visual: "pv-8", ingredients: ["Ceramides", "Glycerin", "Oat Extract"], desc: "A creamy, fragrance-free cleanser that melts away makeup and impurities without stripping the skin. Formulated with ceramides to maintain the skin barrier and leave skin soft." },
-  { id: 9, name: "AHA/BHA Exfoliating Toner", category: "Toner", price: 42, origPrice: 55, rating: 4.4, reviews: 168, concern: "Acne", badge: "Sale", featured: false, stock: 72, emoji: "⚗️", visual: "pv-1", ingredients: ["Glycolic Acid 5%", "Salicylic Acid 2%", "Green Tea"], desc: "A gentle exfoliating toner combining 5% glycolic acid and 2% salicylic acid to dissolve dead skin cells, unclog pores and reveal brighter, smoother skin with regular use." },
-  { id: 10, name: "Ceramide Barrier Cream", category: "Moisturizer", price: 44, origPrice: null, rating: 4.8, reviews: 302, concern: "Sensitive", badge: "", featured: false, stock: 110, emoji: "🛡️", visual: "pv-2", ingredients: ["Ceramides NP/AP/EOP", "Cholesterol", "Fatty Acids"], desc: "A rich, reparative moisturizer packed with three essential ceramides to restore and strengthen skin's natural barrier, reduce redness and lock in lasting moisture." },
-  { id: 11, name: "Glow Radiance Mask", category: "Mask", price: 45, origPrice: 60, rating: 4.6, reviews: 89, concern: "Brightening", badge: "", featured: false, stock: 55, emoji: "💎", visual: "pv-3", ingredients: ["Kaolin Clay", "Vitamin C", "Papaya Enzyme"], desc: "A brightening clay mask that uses natural papaya enzymes and vitamin C to polish away dullness, deeply cleanse pores and reveal a luminous, even complexion in just 10 minutes." },
-  { id: 12, name: "Mineral Sunscreen SPF 30", category: "Sunscreen", price: 34, origPrice: null, rating: 4.5, reviews: 143, concern: "Sensitive", badge: "New", featured: false, stock: 90, emoji: "🌤️", visual: "pv-4", ingredients: ["Zinc Oxide 20%", "Titanium Dioxide", "Aloe Vera"], desc: "A pure mineral SPF 30 sunscreen with 20% zinc oxide, specially formulated for sensitive and reactive skin. Fragrance-free, reef-safe and gentle enough for daily use." },
+  { id: 1,  name: "Vitamin C Brightening Serum",    category: "Serum",       price: 48,  origPrice: 68,  rating: 4.9, reviews: 312, concern: "Brightening", badge: "Best Seller", featured: true,  stock: 85,  emoji: "✨", visual: "pv-1",  ingredients: ["Vitamin C", "Niacinamide", "Ferulic Acid"],         desc: "A powerful brightening serum packed with 15% Vitamin C and Niacinamide to visibly reduce dark spots, even skin tone and deliver a radiant, glass-skin glow. Suitable for all skin types." },
+  { id: 2,  name: "Hyaluronic Acid Deep Toner",      category: "Toner",       price: 32,  origPrice: null,rating: 4.7, reviews: 189, concern: "Hydrating",   badge: "New",         featured: true,  stock: 120, emoji: "💧", visual: "pv-2",  ingredients: ["Hyaluronic Acid", "Centella Asiatica", "Aloe Vera"],desc: "A lightweight, deeply hydrating toner formulated with multi-molecular hyaluronic acid that penetrates all layers of the skin for lasting plump, dewy hydration." },
+  { id: 3,  name: "Retinol Night Repair Cream",      category: "Moisturizer", price: 65,  origPrice: 85,  rating: 4.8, reviews: 241, concern: "Anti-Aging",  badge: "Sale",        featured: true,  stock: 42,  emoji: "🌙", visual: "pv-3",  ingredients: ["Retinol 0.3%", "Peptides", "Squalane"],             desc: "A luxurious night cream enriched with encapsulated retinol and skin-firming peptides to reduce fine lines, smooth texture and restore youthful radiance while you sleep." },
+  { id: 4,  name: "SPF 50+ Invisible Sunscreen",     category: "Sunscreen",   price: 38,  origPrice: null,rating: 4.6, reviews: 408, concern: "Sensitive",   badge: "Best Seller", featured: true,  stock: 200, emoji: "☀️", visual: "pv-4",  ingredients: ["Zinc Oxide", "Tinosorb M", "Niacinamide"],          desc: "An ultra-lightweight, invisible SPF 50+ fluid that protects against UVA/UVB rays without white cast. Enriched with antioxidants for a smooth, matte finish." },
+  { id: 5,  name: "Rose Glow Sleeping Mask",         category: "Mask",        price: 52,  origPrice: 70,  rating: 4.9, reviews: 177, concern: "Hydrating",   badge: "Sale",        featured: true,  stock: 60,  emoji: "🌹", visual: "pv-5",  ingredients: ["Rosehip Oil", "Ceramides", "Bakuchiol"],            desc: "A velvety overnight mask infused with rosehip oil and ceramides that deeply nourishes and repairs skin's barrier while you sleep, leaving skin soft and luminous by morning." },
+  { id: 6,  name: "Niacinamide Pore Minimiser",      category: "Serum",       price: 36,  origPrice: null,rating: 4.5, reviews: 295, concern: "Acne",        badge: "",            featured: true,  stock: 95,  emoji: "🔬", visual: "pv-6",  ingredients: ["Niacinamide 10%", "Zinc PCA", "Salicylic Acid"],    desc: "A targeted pore-minimising serum with 10% Niacinamide and Zinc PCA to control excess sebum, reduce enlarged pores and refine skin texture for a smooth, airbrushed complexion." },
+  { id: 7,  name: "Peptide Revival Eye Cream",       category: "Eye Care",    price: 58,  origPrice: 78,  rating: 4.7, reviews: 134, concern: "Anti-Aging",  badge: "New",         featured: false, stock: 38,  emoji: "👁️", visual: "pv-7",  ingredients: ["Argireline", "Caffeine", "Hyaluronic Acid"],        desc: "A potent eye cream infused with Argireline peptides and caffeine to smooth crow's feet, depuff under-eyes and brighten dark circles for a wide-awake, youthful look." },
+  { id: 8,  name: "Gentle Milky Foam Cleanser",      category: "Cleanser",    price: 28,  origPrice: null,rating: 4.6, reviews: 221, concern: "Sensitive",   badge: "",            featured: false, stock: 150, emoji: "🫧", visual: "pv-8",  ingredients: ["Ceramides", "Glycerin", "Oat Extract"],             desc: "A creamy, fragrance-free cleanser that melts away makeup and impurities without stripping the skin. Formulated with ceramides to maintain the skin barrier and leave skin soft." },
+  { id: 9,  name: "AHA/BHA Glow Toner",              category: "Toner",       price: 42,  origPrice: 55,  rating: 4.4, reviews: 168, concern: "Acne",        badge: "Sale",        featured: false, stock: 72,  emoji: "⚗️", visual: "pv-1",  ingredients: ["Glycolic Acid 5%", "Salicylic Acid 2%", "Green Tea"],desc: "A gentle exfoliating toner combining 5% glycolic acid and 2% salicylic acid to dissolve dead skin cells, unclog pores and reveal brighter, smoother skin with regular use." },
+  { id: 10, name: "Ceramide Barrier Moisturizer",    category: "Moisturizer", price: 44,  origPrice: null,rating: 4.8, reviews: 302, concern: "Sensitive",   badge: "",            featured: false, stock: 110, emoji: "🛡️", visual: "pv-2",  ingredients: ["Ceramides NP/AP/EOP", "Cholesterol", "Fatty Acids"], desc: "A rich, reparative moisturizer packed with three essential ceramides to restore and strengthen skin's natural barrier, reduce redness and lock in lasting moisture." },
+  { id: 11, name: "Glow Radiance Clay Mask",         category: "Mask",        price: 45,  origPrice: 60,  rating: 4.6, reviews: 89,  concern: "Brightening", badge: "",            featured: false, stock: 55,  emoji: "💎", visual: "pv-3",  ingredients: ["Kaolin Clay", "Vitamin C", "Papaya Enzyme"],        desc: "A brightening clay mask that uses natural papaya enzymes and vitamin C to polish away dullness, deeply cleanse pores and reveal a luminous, even complexion in just 10 minutes." },
+  { id: 12, name: "Mineral Sunscreen SPF 30",        category: "Sunscreen",   price: 34,  origPrice: null,rating: 4.5, reviews: 143, concern: "Sensitive",   badge: "New",         featured: false, stock: 90,  emoji: "🌤️", visual: "pv-4",  ingredients: ["Zinc Oxide 20%", "Titanium Dioxide", "Aloe Vera"],  desc: "A pure mineral SPF 30 sunscreen with 20% zinc oxide, specially formulated for sensitive and reactive skin. Fragrance-free, reef-safe and gentle enough for daily use." },
+  { id: 13, name: "Plumping Lip Serum",              category: "Lip Care",    price: 22,  origPrice: 30,  rating: 4.7, reviews: 98,  concern: "Hydrating",   badge: "New",         featured: false, stock: 75,  emoji: "💋", visual: "pv-9",  ingredients: ["Hyaluronic Acid", "Peptides", "Vitamin E"],         desc: "A nourishing lip serum that plumps, hydrates and softens lips overnight. Packed with peptides and hyaluronic acid for a fuller, more defined lip." },
+  { id: 14, name: "Collagen Booster Serum",          category: "Serum",       price: 72,  origPrice: 95,  rating: 4.8, reviews: 156, concern: "Anti-Aging",  badge: "Best Seller", featured: false, stock: 45,  emoji: "💫", visual: "pv-5",  ingredients: ["Marine Collagen", "Vitamin C", "Peptides"],         desc: "A luxurious collagen-boosting serum that visibly firms and plumps skin, reducing fine lines and restoring youthful elasticity for a smoother, more radiant complexion." },
+  { id: 15, name: "Squalane Body Glow Oil",          category: "Body Care",   price: 35,  origPrice: null,rating: 4.6, reviews: 112, concern: "Hydrating",   badge: "",            featured: false, stock: 80,  emoji: "✨", visual: "pv-6",  ingredients: ["Squalane", "Jojoba Oil", "Vitamin E"],              desc: "A lightweight, non-greasy body oil that delivers intense moisture and a beautiful luminous glow. Absorbs quickly leaving skin silky soft all day long." },
+  { id: 16, name: "Green Tea Detox Mask",            category: "Mask",        price: 38,  origPrice: 48,  rating: 4.5, reviews: 74,  concern: "Acne",        badge: "Sale",        featured: false, stock: 65,  emoji: "🍵", visual: "pv-10", ingredients: ["Green Tea Extract", "Bentonite Clay", "Tea Tree"],   desc: "A powerful detoxifying mask infused with antioxidant-rich green tea and purifying bentonite clay to draw out impurities, minimize pores and mattify oily skin." },
+  { id: 17, name: "Bakuchiol Plant Retinol Serum",   category: "Serum",       price: 55,  origPrice: 70,  rating: 4.7, reviews: 87,  concern: "Anti-Aging",  badge: "",            featured: false, stock: 50,  emoji: "🌿", visual: "pv-7",  ingredients: ["Bakuchiol 1%", "Rosehip Oil", "Squalane"],          desc: "A gentle, plant-based alternative to retinol. Bakuchiol delivers similar anti-aging benefits without irritation, making it perfect for sensitive skin types." },
+  { id: 18, name: "Rose Water Refreshing Mist",      category: "Toner",       price: 24,  origPrice: null,rating: 4.4, reviews: 203, concern: "Hydrating",   badge: "",            featured: false, stock: 130, emoji: "🌸", visual: "pv-8",  ingredients: ["Rose Water", "Glycerin", "Chamomile"],              desc: "A refreshing facial mist infused with pure rose water and glycerin to instantly hydrate, soothe and refresh skin throughout the day. Perfect as a toner or midday pick-me-up." },
+  { id: 19, name: "Brightening Under-Eye Patches",   category: "Eye Care",    price: 18,  origPrice: 25,  rating: 4.5, reviews: 165, concern: "Brightening", badge: "Sale",        featured: false, stock: 95,  emoji: "🩹", visual: "pv-1",  ingredients: ["Gold", "Retinol", "Hyaluronic Acid"],               desc: "Luxurious 24K gold-infused eye patches that instantly brighten, depuff and hydrate the under-eye area. 20-minute treatment for a wide-awake, refreshed look." },
+  { id: 20, name: "Shea Butter Nourish Body Lotion", category: "Body Care",   price: 28,  origPrice: null,rating: 4.6, reviews: 134, concern: "Hydrating",   badge: "",            featured: false, stock: 100, emoji: "🧴", visual: "pv-2",  ingredients: ["Shea Butter", "Cocoa Butter", "Vitamin E"],         desc: "A rich, creamy body lotion that deeply nourishes and softens even the driest skin. Shea and cocoa butter provide 24-hour moisture for silky smooth, healthy-looking skin." },
 ];
 
-/* ========================================================
-   STATE
-   ======================================================== */
-let cart = JSON.parse(localStorage.getItem('glowCart') || '[]');
-let wishlist = JSON.parse(localStorage.getItem('glowWishlist') || '[]');
-let orders = JSON.parse(localStorage.getItem('glowOrders') || '[]');
-let customers = JSON.parse(localStorage.getItem('glowCustomers') || '[]');
-let currentUser = JSON.parse(localStorage.getItem('glowUser') || 'null');
+/* ======== STATE ======== */
+let cart      = JSON.parse(localStorage.getItem('saadCart')      || '[]');
+let wishlist  = JSON.parse(localStorage.getItem('saadWishlist')  || '[]');
+let orders    = JSON.parse(localStorage.getItem('saadOrders')    || '[]');
+let customers = JSON.parse(localStorage.getItem('saadCustomers') || '[]');
+let currentUser = JSON.parse(localStorage.getItem('saadUser')    || 'null');
 let currentPage = 'home';
-let shopFilters = { categories: [], maxPrice: 200, concerns: [], minRating: 0, sort: 'default' };
 let discount = 0;
-let currentProductId = null;
 
-/* ========================================================
-   PERSIST
-   ======================================================== */
+/* ======== PERSIST ======== */
 function saveState() {
-  localStorage.setItem('glowCart', JSON.stringify(cart));
-  localStorage.setItem('glowWishlist', JSON.stringify(wishlist));
-  localStorage.setItem('glowOrders', JSON.stringify(orders));
-  localStorage.setItem('glowCustomers', JSON.stringify(customers));
-  localStorage.setItem('glowUser', JSON.stringify(currentUser));
+  localStorage.setItem('saadCart',      JSON.stringify(cart));
+  localStorage.setItem('saadWishlist',  JSON.stringify(wishlist));
+  localStorage.setItem('saadOrders',    JSON.stringify(orders));
+  localStorage.setItem('saadCustomers', JSON.stringify(customers));
+  localStorage.setItem('saadUser',      JSON.stringify(currentUser));
 }
 
-/* ========================================================
-   TOAST
-   ======================================================== */
+/* ======== TOAST ======== */
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -56,9 +52,7 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2800);
 }
 
-/* ========================================================
-   PAGE ROUTING
-   ======================================================== */
+/* ======== PAGE ROUTING ======== */
 function showPage(page) {
   document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
   const el = document.getElementById('page-' + page);
@@ -67,37 +61,33 @@ function showPage(page) {
   currentPage = page;
 
   const footer = document.getElementById('mainFooter');
-  footer.style.display = page === 'admin' ? 'none' : 'block';
+  if (footer) footer.style.display = page === 'admin' ? 'none' : 'block';
 
   window.scrollTo(0, 0);
   closeAll();
 
-  if (page === 'home') renderFeatured();
-  if (page === 'shop') renderShop();
+  if (page === 'home')     renderFeatured();
+  if (page === 'shop')     renderShop();
   if (page === 'wishlist') renderWishlist();
   if (page === 'checkout') renderCheckout();
-  if (page === 'orders') renderOrders();
-  if (page === 'admin') initAdmin();
+  if (page === 'orders')   renderOrders();
+  if (page === 'admin')    initAdmin();
 }
 
-function scrollTo(selector) {
+function scrollToEl(selector) {
   setTimeout(() => {
     const el = document.querySelector(selector);
     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, 100);
+  }, 120);
 }
 
-/* ========================================================
-   SCROLL NAV
-   ======================================================== */
+/* ======== SCROLL NAV ======== */
 window.addEventListener('scroll', () => {
   const nav = document.querySelector('.navbar');
   if (nav) nav.classList.toggle('scrolled', window.scrollY > 20);
 });
 
-/* ========================================================
-   CLOSE ALL DRAWERS / OVERLAYS
-   ======================================================== */
+/* ======== CLOSE ALL ======== */
 function closeAll() {
   document.querySelectorAll('.drawer').forEach(d => d.classList.remove('open'));
   document.getElementById('overlay').classList.remove('show');
@@ -105,36 +95,36 @@ function closeAll() {
   const hb = document.getElementById('hamburger');
   if (hb) hb.classList.remove('open');
   const nl = document.getElementById('navLinks');
-  if (nl) nl.style.display = '';
+  if (nl) { nl.style.display = ''; nl.style.position = ''; }
 }
 
 function openOverlay() {
   document.getElementById('overlay').classList.add('show');
 }
 
-/* ========================================================
-   HAMBURGER
-   ======================================================== */
+/* ======== HAMBURGER ======== */
 document.getElementById('hamburger').addEventListener('click', function () {
   this.classList.toggle('open');
   const nl = document.getElementById('navLinks');
   const isOpen = this.classList.contains('open');
-  nl.style.display = isOpen ? 'flex' : '';
-  nl.style.flexDirection = 'column';
-  nl.style.position = 'absolute';
-  nl.style.top = 'var(--nav-h)';
-  nl.style.left = '0';
-  nl.style.right = '0';
-  nl.style.background = 'var(--surface)';
-  nl.style.padding = '1rem 2rem';
-  nl.style.borderBottom = '1px solid var(--border)';
-  nl.style.zIndex = '899';
-  if (isOpen) openOverlay(); else closeAll();
+  if (isOpen) {
+    nl.style.display = 'flex';
+    nl.style.flexDirection = 'column';
+    nl.style.position = 'absolute';
+    nl.style.top = 'var(--nav-h)';
+    nl.style.left = '0';
+    nl.style.right = '0';
+    nl.style.background = 'var(--surface)';
+    nl.style.padding = '1rem 2rem';
+    nl.style.borderBottom = '1px solid var(--border)';
+    nl.style.zIndex = '899';
+    openOverlay();
+  } else {
+    closeAll();
+  }
 });
 
-/* ========================================================
-   SEARCH
-   ======================================================== */
+/* ======== SEARCH ======== */
 function toggleSearch() {
   const bar = document.getElementById('searchBar');
   const isOpen = bar.classList.toggle('open');
@@ -159,9 +149,7 @@ function handleSearch(val) {
     : `<div class="sr-item">No results for "${val}"</div>`;
 }
 
-/* ========================================================
-   CART DRAWER
-   ======================================================== */
+/* ======== CART ======== */
 function toggleCart() {
   const drawer = document.getElementById('cartDrawer');
   const isOpen = drawer.classList.toggle('open');
@@ -170,11 +158,11 @@ function toggleCart() {
 }
 
 function renderCartDrawer() {
-  const body = document.getElementById('cartItems');
+  const body   = document.getElementById('cartItems');
   const footer = document.getElementById('cartFooter');
-  const count = document.getElementById('cartCount');
-  const totalItems = cart.reduce((s, i) => s + i.qty, 0);
-  count.textContent = `(${totalItems})`;
+  const count  = document.getElementById('cartCount');
+  const total  = cart.reduce((s, i) => s + i.qty, 0);
+  count.textContent = `(${total})`;
 
   if (!cart.length) {
     body.innerHTML = '<p class="empty-msg">Your cart is empty ✨</p>';
@@ -187,16 +175,16 @@ function renderCartDrawer() {
     if (!p) return '';
     return `
       <div class="cart-item">
-        <div class="ci-img"><div class="pv-blob ${p.visual}" style="width:100%;height:100%;font-size:1.5rem">${p.emoji}</div></div>
+        <div class="ci-img"><div style="font-size:2rem;display:flex;align-items:center;justify-content:center;width:100%;height:100%">${p.emoji}</div></div>
         <div class="ci-body">
           <div class="ci-name">${p.name}</div>
           <div class="ci-cat">${p.category}</div>
           <div class="ci-row">
             <span class="ci-price">$${(p.price * item.qty).toFixed(2)}</span>
             <div class="qty-control">
-              <button class="qty-btn" onclick="changeQty(${p.id}, -1)">−</button>
+              <button class="qty-btn" onclick="changeQty(${p.id},-1)">−</button>
               <span class="qty-num">${item.qty}</span>
-              <button class="qty-btn" onclick="changeQty(${p.id}, 1)">+</button>
+              <button class="qty-btn" onclick="changeQty(${p.id},1)">+</button>
             </div>
             <button class="ci-remove" onclick="removeFromCart(${p.id})">🗑</button>
           </div>
@@ -204,14 +192,18 @@ function renderCartDrawer() {
       </div>`;
   }).join('');
 
-  const subtotal = cart.reduce((s, i) => {
+  const subtotal = cartSubtotal();
+  const shipping = subtotal >= 50 ? 0 : 5.99;
+  document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
+  document.getElementById('cartShipping').textContent  = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
+  document.getElementById('cartTotal').textContent     = `$${(subtotal + shipping).toFixed(2)}`;
+}
+
+function cartSubtotal() {
+  return cart.reduce((s, i) => {
     const p = products.find(x => x.id === i.id);
     return s + (p ? p.price * i.qty : 0);
   }, 0);
-  const shipping = subtotal >= 50 ? 0 : 5.99;
-  document.getElementById('cartSubtotal').textContent = `$${subtotal.toFixed(2)}`;
-  document.getElementById('cartShipping').textContent = shipping === 0 ? 'Free' : `$${shipping.toFixed(2)}`;
-  document.getElementById('cartTotal').textContent = `$${(subtotal + shipping).toFixed(2)}`;
 }
 
 function addToCart(id, qty = 1) {
@@ -239,9 +231,7 @@ function changeQty(id, delta) {
   updateBadges();
 }
 
-/* ========================================================
-   WISHLIST
-   ======================================================== */
+/* ======== WISHLIST ======== */
 function toggleWishlist(id) {
   const idx = wishlist.indexOf(id);
   if (idx >= 0) {
@@ -253,7 +243,6 @@ function toggleWishlist(id) {
   }
   saveState();
   updateBadges();
-  // Refresh wish button states in current view
   document.querySelectorAll(`.pc-wish[data-id="${id}"]`).forEach(btn => {
     btn.classList.toggle('wished', wishlist.includes(id));
     btn.textContent = wishlist.includes(id) ? '💛' : '🤍';
@@ -270,18 +259,13 @@ function renderWishlist() {
   grid.innerHTML = items.map(p => renderProductCard(p)).join('');
 }
 
-/* ========================================================
-   BADGES
-   ======================================================== */
+/* ======== BADGES ======== */
 function updateBadges() {
-  const cartCount = cart.reduce((s, i) => s + i.qty, 0);
-  document.getElementById('cartBadge').textContent = cartCount;
+  document.getElementById('cartBadge').textContent    = cart.reduce((s, i) => s + i.qty, 0);
   document.getElementById('wishlistBadge').textContent = wishlist.length;
 }
 
-/* ========================================================
-   PRODUCT CARD RENDERER
-   ======================================================== */
+/* ======== PRODUCT CARD ======== */
 function renderProductCard(p) {
   const wished = wishlist.includes(p.id);
   const hasDiscount = p.origPrice && p.origPrice > p.price;
@@ -293,18 +277,18 @@ function renderProductCard(p) {
       <div class="pc-img">
         <div class="pc-img-inner">
           <div class="pc-product-visual">
-            <div class="pv-blob ${p.visual}" style="font-size:3rem">${p.emoji}</div>
+            <div class="pv-blob ${p.visual}" style="font-size:2.8rem">${p.emoji}</div>
           </div>
         </div>
         ${p.badge ? `<span class="pc-badge ${p.badge === 'New' ? 'new-badge' : 'sale-badge'}">${p.badge}</span>` : ''}
         <button class="pc-wish ${wished ? 'wished' : ''}" data-id="${p.id}" onclick="toggleWishlist(${p.id})">${wished ? '💛' : '🤍'}</button>
         <div class="pc-quick">
-          <button class="btn btn-primary btn-full btn-sm" onclick="addToCart(${p.id})">Add to Cart</button>
+          <button class="btn btn-primary btn-sm" onclick="addToCart(${p.id});event.stopPropagation()">Add to Cart 🛍️</button>
         </div>
       </div>
       <div class="pc-body">
         <div class="pc-cat">${p.category}</div>
-        <div class="pc-name" onclick="openProduct(${p.id})" style="cursor:pointer">${p.name}</div>
+        <div class="pc-name" onclick="openProduct(${p.id})">${p.name}</div>
         <div class="pc-stars">${stars} <span>(${p.reviews})</span></div>
         <div class="pc-price">
           <span class="pc-price-main">$${p.price}</span>
@@ -318,22 +302,16 @@ function renderProductCard(p) {
     </div>`;
 }
 
-/* ========================================================
-   FEATURED GRID
-   ======================================================== */
+/* ======== FEATURED ROW (horizontal scroll) ======== */
 function renderFeatured() {
-  const grid = document.getElementById('featuredGrid');
-  if (!grid) return;
-  const featured = products.filter(p => p.featured).slice(0, 6);
-  grid.innerHTML = featured.map(p => renderProductCard(p)).join('');
+  const row = document.getElementById('featuredRow');
+  if (!row) return;
+  const featured = products.filter(p => p.featured).slice(0, 8);
+  row.innerHTML = featured.map(p => renderProductCard(p)).join('');
 }
 
-/* ========================================================
-   SHOP PAGE
-   ======================================================== */
-function renderShop() {
-  applyFilters();
-}
+/* ======== SHOP ======== */
+function renderShop() { applyFilters(); }
 
 function applyFilters() {
   const catChecks = document.querySelectorAll('#catFilters input[type=checkbox]');
@@ -347,9 +325,9 @@ function applyFilters() {
   const maxPrice = parseFloat(document.getElementById('priceMax')?.value || 200);
   const minPrice = parseFloat(document.getElementById('priceMin')?.value || 0);
 
-  const concernChecks = document.querySelectorAll('#shopSidebar input[value="Anti-Aging"], #shopSidebar input[value="Brightening"], #shopSidebar input[value="Hydrating"], #shopSidebar input[value="Acne"], #shopSidebar input[value="Sensitive"]');
+  const concernInputs = document.querySelectorAll('#shopSidebar input[value="Anti-Aging"], #shopSidebar input[value="Brightening"], #shopSidebar input[value="Hydrating"], #shopSidebar input[value="Acne"], #shopSidebar input[value="Sensitive"]');
   const selectedConcerns = [];
-  concernChecks.forEach(c => { if (c.checked) selectedConcerns.push(c.value); });
+  concernInputs.forEach(c => { if (c.checked) selectedConcerns.push(c.value); });
 
   const ratingVal = parseFloat(document.querySelector('input[name="rating"]:checked')?.value || 0);
   const sort = document.getElementById('sortSelect')?.value || 'default';
@@ -360,21 +338,17 @@ function applyFilters() {
     filtered = filtered.filter(p => selectedCats.includes(p.category));
   }
   filtered = filtered.filter(p => p.price >= minPrice && p.price <= maxPrice);
-  if (selectedConcerns.length) {
-    filtered = filtered.filter(p => selectedConcerns.includes(p.concern));
-  }
-  if (ratingVal > 0) {
-    filtered = filtered.filter(p => p.rating >= ratingVal);
-  }
+  if (selectedConcerns.length) filtered = filtered.filter(p => selectedConcerns.includes(p.concern));
+  if (ratingVal > 0) filtered = filtered.filter(p => p.rating >= ratingVal);
 
-  if (sort === 'price-low') filtered.sort((a, b) => a.price - b.price);
+  if (sort === 'price-low')  filtered.sort((a, b) => a.price - b.price);
   else if (sort === 'price-high') filtered.sort((a, b) => b.price - a.price);
-  else if (sort === 'rating') filtered.sort((a, b) => b.rating - a.rating);
-  else if (sort === 'newest') filtered.sort((a, b) => b.id - a.id);
+  else if (sort === 'rating')     filtered.sort((a, b) => b.rating - a.rating);
+  else if (sort === 'newest')     filtered.sort((a, b) => b.id - a.id);
 
-  const grid = document.getElementById('shopGrid');
+  const grid      = document.getElementById('shopGrid');
   const noResults = document.getElementById('noResults');
-  const count = document.getElementById('shopResultCount');
+  const count     = document.getElementById('shopResultCount');
 
   if (!filtered.length) {
     grid.innerHTML = '';
@@ -392,22 +366,17 @@ function syncPriceSlider(val) {
 }
 
 function resetFilters() {
-  document.querySelectorAll('#shopSidebar input[type=checkbox]').forEach(c => {
-    c.checked = c.value === 'all';
-  });
-  document.querySelectorAll('#shopSidebar input[type=radio]').forEach(r => {
-    r.checked = r.value === '0';
-  });
-  document.getElementById('priceMin').value = 0;
-  document.getElementById('priceMax').value = 200;
+  document.querySelectorAll('#shopSidebar input[type=checkbox]').forEach(c => { c.checked = c.value === 'all'; });
+  document.querySelectorAll('#shopSidebar input[type=radio]').forEach(r => { r.checked = r.value === '0'; });
+  document.getElementById('priceMin').value  = 0;
+  document.getElementById('priceMax').value  = 200;
   document.getElementById('priceSlider').value = 200;
-  document.getElementById('sortSelect').value = 'default';
+  document.getElementById('sortSelect').value  = 'default';
   applyFilters();
 }
 
 function toggleSidebar() {
-  const sidebar = document.getElementById('shopSidebar');
-  sidebar.classList.toggle('sidebar-open');
+  document.getElementById('shopSidebar').classList.toggle('sidebar-open');
   openOverlay();
 }
 
@@ -429,16 +398,12 @@ function filterAndGo(category) {
   }, 50);
 }
 
-/* ========================================================
-   PRODUCT DETAIL
-   ======================================================== */
+/* ======== PRODUCT DETAIL ======== */
 function openProduct(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
-  currentProductId = id;
   showPage('product');
 
-  // Breadcrumb
   document.getElementById('breadcrumb').innerHTML = `
     <a href="#" onclick="showPage('home')">Home</a>
     <span class="bc-sep">›</span>
@@ -453,7 +418,7 @@ function openProduct(id) {
 
   document.getElementById('productDetail').innerHTML = `
     <div class="pd-img">
-      <div class="pv-blob ${p.visual}" style="font-size:6rem">${p.emoji}</div>
+      <div class="pv-blob ${p.visual}" style="font-size:6rem;width:65%;aspect-ratio:1">${p.emoji}</div>
     </div>
     <div class="pd-info">
       <div class="pd-cat">${p.category}</div>
@@ -489,9 +454,7 @@ function openProduct(id) {
       <div class="pd-accordion">
         <div class="pd-acc-item">
           <button class="pd-acc-trigger" onclick="toggleAcc(this)">Key Ingredients <span>▼</span></button>
-          <div class="pd-acc-body">
-            <div class="ingredient-tags">${p.ingredients.map(i => `<span class="ing-tag">${i}</span>`).join('')}</div>
-          </div>
+          <div class="pd-acc-body"><div class="ingredient-tags">${p.ingredients.map(i => `<span class="ing-tag">${i}</span>`).join('')}</div></div>
         </div>
         <div class="pd-acc-item">
           <button class="pd-acc-trigger" onclick="toggleAcc(this)">How to Use <span>▼</span></button>
@@ -504,7 +467,6 @@ function openProduct(id) {
       </div>
     </div>`;
 
-  // Related products
   const related = products.filter(x => x.id !== id && (x.category === p.category || x.concern === p.concern)).slice(0, 4);
   document.getElementById('relatedGrid').innerHTML = related.map(r => renderProductCard(r)).join('');
 }
@@ -531,47 +493,41 @@ function pdToggleWish(id) {
 
 function toggleAcc(trigger) {
   trigger.classList.toggle('open');
-  const body = trigger.nextElementSibling;
-  body.classList.toggle('open');
+  trigger.nextElementSibling.classList.toggle('open');
 }
 
-/* ========================================================
-   AUTH
-   ======================================================== */
+/* ======== AUTH ======== */
 function toggleAuth() {
   const drawer = document.getElementById('authDrawer');
   const isOpen = drawer.classList.toggle('open');
   if (isOpen) {
     openOverlay();
-    if (currentUser) showAuthPanel('profile');
-    else showAuthPanel('login');
+    showAuthPanel(currentUser ? 'profile' : 'login');
   } else {
     closeAll();
   }
 }
 
-function switchAuth(mode) {
-  showAuthPanel(mode);
-}
+function switchAuth(mode) { showAuthPanel(mode); }
 
 function showAuthPanel(mode) {
-  document.getElementById('loginForm').style.display = mode === 'login' ? 'block' : 'none';
+  document.getElementById('loginForm').style.display    = mode === 'login'    ? 'block' : 'none';
   document.getElementById('registerForm').style.display = mode === 'register' ? 'block' : 'none';
-  document.getElementById('profilePanel').style.display = mode === 'profile' ? 'block' : 'none';
+  document.getElementById('profilePanel').style.display = mode === 'profile'  ? 'block' : 'none';
   const titles = { login: 'Welcome Back', register: 'Create Account', profile: 'My Account' };
   document.getElementById('authTitle').textContent = titles[mode];
 
   if (mode === 'profile' && currentUser) {
     const initials = currentUser.name.split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
     document.getElementById('profileAvatar').textContent = initials;
-    document.getElementById('profileName').textContent = currentUser.name;
-    document.getElementById('profileEmail').textContent = currentUser.email;
+    document.getElementById('profileName').textContent   = currentUser.name;
+    document.getElementById('profileEmail').textContent  = currentUser.email;
   }
 }
 
 function handleLogin() {
   const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPass').value;
+  const pass  = document.getElementById('loginPass').value;
   if (!email || !pass) { showToast('Please fill in all fields'); return; }
   const user = customers.find(c => c.email === email);
   if (!user) { showToast('Account not found. Please register.'); return; }
@@ -582,16 +538,16 @@ function handleLogin() {
 }
 
 function handleRegister() {
-  const name = document.getElementById('regName').value.trim();
+  const name  = document.getElementById('regName').value.trim();
   const email = document.getElementById('regEmail').value.trim();
-  const pass = document.getElementById('regPass').value;
+  const pass  = document.getElementById('regPass').value;
   if (!name || !email || !pass) { showToast('Please fill in all fields'); return; }
   if (customers.find(c => c.email === email)) { showToast('Email already registered'); return; }
   const user = { id: Date.now(), name, email, joined: new Date().toLocaleDateString(), orders: 0, spent: 0 };
   customers.push(user);
   currentUser = user;
   saveState();
-  showToast(`Welcome to GLOW, ${name.split(' ')[0]}! ✨`);
+  showToast(`Welcome to Saad Beauty Care, ${name.split(' ')[0]}! ✨`);
   showAuthPanel('profile');
 }
 
@@ -602,12 +558,9 @@ function handleLogout() {
   showToast('Signed out. See you soon! 👋');
 }
 
-/* ========================================================
-   CHECKOUT
-   ======================================================== */
+/* ======== CHECKOUT ======== */
 function renderCheckout() {
-  // Summary sidebar
-  const itemsEl = document.getElementById('coCartItems');
+  const itemsEl  = document.getElementById('coCartItems');
   const totalsEl = document.getElementById('coTotals');
   if (!itemsEl) return;
 
@@ -630,10 +583,7 @@ function renderCheckout() {
 }
 
 function updateCoTotals() {
-  const subtotal = cart.reduce((s, i) => {
-    const p = products.find(x => x.id === i.id);
-    return s + (p ? p.price * i.qty : 0);
-  }, 0);
+  const subtotal = cartSubtotal();
   const shippingChoice = document.querySelector('input[name="shipping"]:checked')?.value || 'free';
   const shippingCost = shippingChoice === 'express' ? 9.99 : shippingChoice === 'overnight' ? 24.99 : (subtotal >= 50 ? 0 : 5.99);
   const discountAmt = discount > 0 ? subtotal * (discount / 100) : 0;
@@ -652,25 +602,19 @@ function goToStep(step) {
     const tab = document.getElementById(`step${s}-tab`);
     if (tab) tab.classList.toggle('active', s === step);
   });
-
   if (step === 2) updateCoTotals();
-
   if (step === 3) {
-    const fname = document.getElementById('coFname').value;
-    const lname = document.getElementById('coLname').value;
-    const addr = document.getElementById('coAddr').value;
-    const city = document.getElementById('coCity').value;
+    const fname   = document.getElementById('coFname').value;
+    const lname   = document.getElementById('coLname').value;
+    const addr    = document.getElementById('coAddr').value;
+    const city    = document.getElementById('coCity').value;
     const country = document.getElementById('coCountry').value;
-    const pm = document.querySelector('input[name="pm"]:checked')?.value || 'card';
+    const pm      = document.querySelector('input[name="pm"]:checked')?.value || 'card';
     const pmLabels = { card: '💳 Credit/Debit Card', paypal: '🅿 PayPal', apple: '🍎 Apple Pay' };
-
-    const subtotal = cart.reduce((s, i) => {
-      const p = products.find(x => x.id === i.id);
-      return s + (p ? p.price * i.qty : 0);
-    }, 0);
+    const subtotal    = cartSubtotal();
     const discountAmt = discount > 0 ? subtotal * (discount / 100) : 0;
     const shippingChoice = document.querySelector('input[name="shipping"]:checked')?.value || 'free';
-    const shippingCost = shippingChoice === 'express' ? 9.99 : shippingChoice === 'overnight' ? 24.99 : (subtotal >= 50 ? 0 : 5.99);
+    const shippingCost   = shippingChoice === 'express' ? 9.99 : shippingChoice === 'overnight' ? 24.99 : (subtotal >= 50 ? 0 : 5.99);
     const total = subtotal - discountAmt + shippingCost;
 
     document.getElementById('orderReview').innerHTML = `
@@ -693,8 +637,7 @@ function goToStep(step) {
 function selectPM(el) {
   document.querySelectorAll('.pm-option').forEach(o => o.classList.remove('active-pm'));
   el.classList.add('active-pm');
-  const val = el.querySelector('input').value;
-  document.getElementById('cardFields').style.display = val === 'card' ? 'block' : 'none';
+  document.getElementById('cardFields').style.display = el.querySelector('input').value === 'card' ? 'block' : 'none';
 }
 
 function formatCard(input) {
@@ -710,8 +653,8 @@ function formatExpiry(input) {
 
 function applyCoupon() {
   const code = document.getElementById('couponCode').value.trim().toUpperCase();
-  const msg = document.getElementById('couponMsg');
-  const coupons = { 'GLOW20': 20, 'BEAUTY10': 10, 'SKINCARE15': 15, 'WELCOME25': 25 };
+  const msg  = document.getElementById('couponMsg');
+  const coupons = { 'SAAD20': 20, 'BEAUTY10': 10, 'SKINCARE15': 15, 'WELCOME25': 25, 'GLOW20': 20 };
   if (coupons[code]) {
     discount = coupons[code];
     msg.style.color = 'var(--mint)';
@@ -729,21 +672,18 @@ function placeOrder() {
   if (!cart.length) { showToast('Your cart is empty'); return; }
   const fname = document.getElementById('coFname').value.trim();
   const email = document.getElementById('coEmail').value.trim();
-  const addr = document.getElementById('coAddr').value.trim();
+  const addr  = document.getElementById('coAddr').value.trim();
   if (!fname) { document.getElementById('coFnameErr').textContent = 'Required'; return; }
   if (!email) { document.getElementById('coEmailErr').textContent = 'Required'; return; }
-  if (!addr) { document.getElementById('coAddrErr').textContent = 'Required'; return; }
+  if (!addr)  { document.getElementById('coAddrErr').textContent  = 'Required'; return; }
 
-  const subtotal = cart.reduce((s, i) => {
-    const p = products.find(x => x.id === i.id);
-    return s + (p ? p.price * i.qty : 0);
-  }, 0);
+  const subtotal    = cartSubtotal();
   const discountAmt = discount > 0 ? subtotal * (discount / 100) : 0;
   const shippingChoice = document.querySelector('input[name="shipping"]:checked')?.value || 'free';
-  const shippingCost = shippingChoice === 'express' ? 9.99 : shippingChoice === 'overnight' ? 24.99 : (subtotal >= 50 ? 0 : 5.99);
+  const shippingCost   = shippingChoice === 'express' ? 9.99 : shippingChoice === 'overnight' ? 24.99 : (subtotal >= 50 ? 0 : 5.99);
   const total = subtotal - discountAmt + shippingCost;
 
-  const orderId = 'GLW-' + Date.now().toString().slice(-6);
+  const orderId = 'SBC-' + Date.now().toString().slice(-6);
   const order = {
     id: orderId,
     customer: fname + ' ' + (document.getElementById('coLname').value || ''),
@@ -756,33 +696,24 @@ function placeOrder() {
   };
   orders.unshift(order);
 
-  // Update customer stats
   if (currentUser) {
     const cu = customers.find(c => c.id === currentUser.id);
     if (cu) { cu.orders++; cu.spent = (parseFloat(cu.spent) + total).toFixed(2); }
   } else {
-    // Guest customer
     const existing = customers.find(c => c.email === email);
-    if (!existing) {
-      customers.push({ id: Date.now(), name: order.customer, email, joined: new Date().toLocaleDateString(), orders: 1, spent: total.toFixed(2) });
-    } else {
-      existing.orders++;
-      existing.spent = (parseFloat(existing.spent) + total).toFixed(2);
-    }
+    if (!existing) customers.push({ id: Date.now(), name: order.customer, email, joined: new Date().toLocaleDateString(), orders: 1, spent: total.toFixed(2) });
+    else { existing.orders++; existing.spent = (parseFloat(existing.spent) + total).toFixed(2); }
   }
 
   cart = [];
   discount = 0;
   saveState();
   updateBadges();
-
   document.getElementById('successOrderId').textContent = `Order #${orderId}`;
   showPage('success');
 }
 
-/* ========================================================
-   ORDERS PAGE
-   ======================================================== */
+/* ======== ORDERS ======== */
 function renderOrders() {
   const list = document.getElementById('ordersList');
   if (!orders.length) {
@@ -811,9 +742,7 @@ function renderOrders() {
     </div>`).join('');
 }
 
-/* ========================================================
-   NEWSLETTER
-   ======================================================== */
+/* ======== NEWSLETTER ======== */
 function handleNewsletter() {
   const email = document.getElementById('nlEmail').value.trim();
   if (!email || !email.includes('@')) { showToast('Please enter a valid email'); return; }
@@ -821,9 +750,7 @@ function handleNewsletter() {
   document.getElementById('nlEmail').value = '';
 }
 
-/* ========================================================
-   ADMIN
-   ======================================================== */
+/* ======== ADMIN ======== */
 function initAdmin() {
   document.getElementById('adminDate').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
   updateAdminStats();
@@ -834,15 +761,16 @@ function initAdmin() {
   renderAdminCustomersTable();
 }
 
-function showAdminTab(tab) {
+function showAdminTab(tab, event) {
   document.querySelectorAll('.admin-tab').forEach(t => t.style.display = 'none');
   document.getElementById('admin-' + tab).style.display = 'block';
   document.querySelectorAll('.an-btn').forEach(b => b.classList.remove('active'));
-  event?.target?.closest('.an-btn')?.classList.add('active');
-  if (tab === 'overview') updateAdminStats();
-  if (tab === 'products') renderAdminProductsTable();
-  if (tab === 'orders') renderAdminOrdersTable();
-  if (tab === 'customers') renderAdminCustomersTable();
+  if (event) event.currentTarget.classList.add('active');
+
+  if (tab === 'overview')    updateAdminStats();
+  if (tab === 'products')    renderAdminProductsTable();
+  if (tab === 'orders')      renderAdminOrdersTable();
+  if (tab === 'customers')   renderAdminCustomersTable();
   if (tab === 'add-product') {
     document.getElementById('addProductTitle').textContent = 'Add New Product';
     document.getElementById('editProductId').value = '';
@@ -852,10 +780,10 @@ function showAdminTab(tab) {
 
 function updateAdminStats() {
   const revenue = orders.reduce((s, o) => s + parseFloat(o.total), 0);
-  document.getElementById('totalRevenue').textContent = '$' + revenue.toFixed(2);
-  document.getElementById('totalOrders').textContent = orders.length;
+  document.getElementById('totalRevenue').textContent  = '$' + revenue.toFixed(2);
+  document.getElementById('totalOrders').textContent   = orders.length;
   document.getElementById('totalCustomers').textContent = customers.length;
-  document.getElementById('totalProducts').textContent = products.length;
+  document.getElementById('totalProducts').textContent  = products.length;
 }
 
 function renderAdminRecentOrders() {
@@ -876,7 +804,7 @@ function renderAdminRecentOrders() {
 }
 
 function renderAdminTopProducts() {
-  const el = document.getElementById('adminTopProducts');
+  const el  = document.getElementById('adminTopProducts');
   const top = [...products].sort((a, b) => b.reviews - a.reviews).slice(0, 5);
   const maxR = top[0]?.reviews || 1;
   el.innerHTML = top.map(p => `
@@ -909,13 +837,10 @@ function renderAdminProductsTable(filter = '') {
     </tr>`).join('');
 }
 
-function filterAdminProducts(val) {
-  renderAdminProductsTable(val);
-}
+function filterAdminProducts(val) { renderAdminProductsTable(val); }
 
 function renderAdminOrdersTable() {
   const body = document.getElementById('adminOrdersBody');
-  const statusClass = { processing: 'status-processing', shipped: 'status-shipped', delivered: 'status-delivered' };
   if (!orders.length) {
     body.innerHTML = '<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:2rem">No orders yet</td></tr>';
     return;
@@ -928,10 +853,10 @@ function renderAdminOrdersTable() {
       <td>${o.items.length}</td>
       <td style="font-weight:700;color:var(--pink)">$${o.total}</td>
       <td>
-        <select class="sort-select" style="padding:.3rem .5rem;font-size:.78rem" onchange="updateOrderStatus('${o.id}', this.value)">
-          <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>Processing</option>
-          <option value="shipped" ${o.status === 'shipped' ? 'selected' : ''}>Shipped</option>
-          <option value="delivered" ${o.status === 'delivered' ? 'selected' : ''}>Delivered</option>
+        <select class="sort-select" style="padding:.3rem .5rem;font-size:.78rem" onchange="updateOrderStatus('${o.id}',this.value)">
+          <option value="processing" ${o.status==='processing'?'selected':''}>Processing</option>
+          <option value="shipped"    ${o.status==='shipped'?'selected':''}>Shipped</option>
+          <option value="delivered"  ${o.status==='delivered'?'selected':''}>Delivered</option>
         </select>
       </td>
     </tr>`).join('');
@@ -954,73 +879,62 @@ function renderAdminCustomersTable() {
       <td>${c.email}</td>
       <td>${c.joined}</td>
       <td>${c.orders}</td>
-      <td style="font-weight:700;color:var(--pink)">$${parseFloat(c.spent || 0).toFixed(2)}</td>
+      <td style="font-weight:700;color:var(--pink)">$${parseFloat(c.spent||0).toFixed(2)}</td>
     </tr>`).join('');
 }
 
 function editProduct(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
-  showAdminTab('add-product');
+  // Find add-product button and click it
+  document.querySelectorAll('.an-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(t => t.style.display = 'none');
+  document.getElementById('admin-add-product').style.display = 'block';
+
   document.getElementById('addProductTitle').textContent = 'Edit Product';
-  document.getElementById('editProductId').value = id;
-  document.getElementById('apName').value = p.name;
-  document.getElementById('apCategory').value = p.category;
-  document.getElementById('apPrice').value = p.price;
-  document.getElementById('apOrigPrice').value = p.origPrice || '';
-  document.getElementById('apStock').value = p.stock;
-  document.getElementById('apConcern').value = p.concern;
-  document.getElementById('apDesc').value = p.desc;
-  document.getElementById('apIngredients').value = p.ingredients.join(', ');
-  document.getElementById('apBadge').value = p.badge || '';
-  document.getElementById('apFeatured').checked = p.featured;
+  document.getElementById('editProductId').value    = id;
+  document.getElementById('apName').value           = p.name;
+  document.getElementById('apCategory').value       = p.category;
+  document.getElementById('apPrice').value          = p.price;
+  document.getElementById('apOrigPrice').value      = p.origPrice || '';
+  document.getElementById('apStock').value          = p.stock;
+  document.getElementById('apConcern').value        = p.concern;
+  document.getElementById('apDesc').value           = p.desc;
+  document.getElementById('apIngredients').value    = p.ingredients.join(', ');
+  document.getElementById('apBadge').value          = p.badge || '';
+  document.getElementById('apFeatured').checked     = p.featured;
 }
 
 function saveProduct() {
-  const name = document.getElementById('apName').value.trim();
-  const category = document.getElementById('apCategory').value;
-  const price = parseFloat(document.getElementById('apPrice').value);
+  const name      = document.getElementById('apName').value.trim();
+  const category  = document.getElementById('apCategory').value;
+  const price     = parseFloat(document.getElementById('apPrice').value);
   const origPrice = parseFloat(document.getElementById('apOrigPrice').value) || null;
-  const stock = parseInt(document.getElementById('apStock').value) || 0;
-  const concern = document.getElementById('apConcern').value;
-  const desc = document.getElementById('apDesc').value.trim();
+  const stock     = parseInt(document.getElementById('apStock').value) || 0;
+  const concern   = document.getElementById('apConcern').value;
+  const desc      = document.getElementById('apDesc').value.trim();
   const ingredients = document.getElementById('apIngredients').value.split(',').map(s => s.trim()).filter(Boolean);
-  const badge = document.getElementById('apBadge').value;
-  const featured = document.getElementById('apFeatured').checked;
+  const badge     = document.getElementById('apBadge').value;
+  const featured  = document.getElementById('apFeatured').checked;
 
   if (!name || !price) { showToast('Please fill in required fields'); return; }
 
-  const editId = document.getElementById('editProductId').value;
-  const visuals = ['pv-1', 'pv-2', 'pv-3', 'pv-4', 'pv-5', 'pv-6', 'pv-7', 'pv-8'];
-  const emojis = ['✨', '💧', '🌙', '☀️', '🌹', '🔬', '👁️', '🫧'];
+  const editId  = document.getElementById('editProductId').value;
+  const visuals = ['pv-1','pv-2','pv-3','pv-4','pv-5','pv-6','pv-7','pv-8','pv-9','pv-10'];
+  const emojis  = ['✨','💧','🌙','☀️','🌹','🔬','👁️','🫧','💋','💫'];
 
   if (editId) {
     const p = products.find(x => x.id === parseInt(editId));
-    if (p) {
-      Object.assign(p, { name, category, price, origPrice, stock, concern, desc, ingredients, badge, featured });
-      showToast('Product updated ✓');
-    }
+    if (p) { Object.assign(p, { name, category, price, origPrice, stock, concern, desc, ingredients, badge, featured }); showToast('Product updated ✓'); }
   } else {
-    const idx = products.length % 8;
-    products.push({
-      id: Date.now(), name, category, price, origPrice, stock, concern, desc, ingredients, badge, featured,
-      rating: 4.5, reviews: 0, emoji: emojis[idx], visual: visuals[idx]
-    });
+    const idx = products.length % 10;
+    products.push({ id: Date.now(), name, category, price, origPrice, stock, concern, desc, ingredients, badge, featured, rating: 4.5, reviews: 0, emoji: emojis[idx], visual: visuals[idx] });
     showToast('Product added ✓');
   }
- saveState();
+
+  saveState();
   renderFeatured();
-  renderShop();
   renderAdminProductsTable();
-
-  clearProductForm();
-
-  document.getElementById('editProductId').value = '';
-
-  document.getElementById('addProductTitle').textContent = 'Add New Product';
-
-  updateAdminStats();
-}
   clearProductForm();
   document.getElementById('editProductId').value = '';
   document.getElementById('addProductTitle').textContent = 'Add New Product';
@@ -1028,7 +942,7 @@ function saveProduct() {
 }
 
 function clearProductForm() {
-  ['apName', 'apPrice', 'apOrigPrice', 'apStock', 'apDesc', 'apIngredients'].forEach(id => {
+  ['apName','apPrice','apOrigPrice','apStock','apDesc','apIngredients'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -1040,7 +954,8 @@ function cancelEditProduct() {
   clearProductForm();
   document.getElementById('editProductId').value = '';
   document.getElementById('addProductTitle').textContent = 'Add New Product';
-  showAdminTab('products');
+  showAdminTab('products', null);
+  document.querySelectorAll('.an-btn')[1]?.classList.add('active');
 }
 
 function deleteProduct(id) {
@@ -1055,14 +970,10 @@ function deleteProduct(id) {
   showToast('Product deleted');
 }
 
-/* ========================================================
-   INIT
-   ======================================================== */
+/* ======== INIT ======== */
 (function init() {
   renderFeatured();
   updateBadges();
-
-  // Scroll events for shipping calc
   document.querySelectorAll('input[name="shipping"]').forEach(r => {
     r.addEventListener('change', updateCoTotals);
   });
