@@ -35,6 +35,10 @@ let currentUser = JSON.parse(localStorage.getItem('saadUser')    || 'null');
 let currentPage = 'home';
 let discount = 0;
 
+/* Active collection expand state */
+let activeCollectionCategory = null;
+let activeCollectionCard = null;
+
 /* ======== PERSIST ======== */
 function saveState() {
   localStorage.setItem('saadCart',      JSON.stringify(cart));
@@ -62,6 +66,10 @@ function showPage(page) {
 
   const footer = document.getElementById('mainFooter');
   if (footer) footer.style.display = page === 'admin' ? 'none' : 'block';
+
+  // Hide hover sidebar on admin page
+  const hoverSidebar = document.getElementById('hoverSidebar');
+  if (hoverSidebar) hoverSidebar.style.display = page === 'admin' ? 'none' : 'flex';
 
   window.scrollTo(0, 0);
   closeAll();
@@ -102,25 +110,63 @@ function openOverlay() {
   document.getElementById('overlay').classList.add('show');
 }
 
-/* ======== HAMBURGER ======== */
-document.getElementById('hamburger').addEventListener('click', function () {
-  this.classList.toggle('open');
-  const nl = document.getElementById('navLinks');
-  const isOpen = this.classList.contains('open');
-  if (isOpen) {
-    nl.style.display = 'flex';
-    nl.style.flexDirection = 'column';
-    nl.style.position = 'absolute';
-    nl.style.top = 'var(--nav-h)';
-    nl.style.left = '0';
-    nl.style.right = '0';
-    nl.style.background = 'var(--surface)';
-    nl.style.padding = '1rem 2rem';
-    nl.style.borderBottom = '1px solid var(--border)';
-    nl.style.zIndex = '899';
-    openOverlay();
-  } else {
-    closeAll();
+/* ======================================================
+   HOVER SIDEBAR — close function (for button clicks)
+   ====================================================== */
+function closeSidebar() {
+  // Nothing needed — CSS hover handles it. This is a no-op placeholder
+  // so onclick calls work without errors. On mobile you may add:
+  document.getElementById('hoverSidebar')?.classList.remove('sidebar-open');
+}
+
+/* On mobile (touch), tapping the trigger toggles the sidebar */
+document.addEventListener('DOMContentLoaded', () => {
+  const trigger = document.getElementById('hsTrigger');
+  const sidebar = document.getElementById('hoverSidebar');
+  if (trigger && sidebar) {
+    trigger.addEventListener('click', (e) => {
+      // Toggle a class for mobile tap-open behaviour
+      sidebar.classList.toggle('sidebar-open');
+      e.stopPropagation();
+    });
+    // Close when clicking outside on mobile
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target)) {
+        sidebar.classList.remove('sidebar-open');
+      }
+    });
+  }
+
+  // Update sidebar cart badge whenever cart changes
+  updateBadges();
+});
+
+/* ======== HAMBURGER (mobile fallback) ======== */
+document.addEventListener('DOMContentLoaded', () => {
+  const hamburgerBtn = document.getElementById('hamburger');
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', function () {
+      this.classList.toggle('open');
+      const nl = document.getElementById('navLinks');
+      const isOpen = this.classList.contains('open');
+      if (isOpen) {
+        if (nl) {
+          nl.style.display = 'flex';
+          nl.style.flexDirection = 'column';
+          nl.style.position = 'absolute';
+          nl.style.top = 'var(--nav-h)';
+          nl.style.left = '0';
+          nl.style.right = '0';
+          nl.style.background = 'var(--surface)';
+          nl.style.padding = '1rem 2rem';
+          nl.style.borderBottom = '1px solid var(--border)';
+          nl.style.zIndex = '899';
+        }
+        openOverlay();
+      } else {
+        closeAll();
+      }
+    });
   }
 });
 
@@ -261,8 +307,12 @@ function renderWishlist() {
 
 /* ======== BADGES ======== */
 function updateBadges() {
-  document.getElementById('cartBadge').textContent    = cart.reduce((s, i) => s + i.qty, 0);
+  const cartTotal = cart.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cartBadge').textContent     = cartTotal;
   document.getElementById('wishlistBadge').textContent = wishlist.length;
+  // Also update sidebar cart badge
+  const sb = document.getElementById('hsSidebarCartBadge');
+  if (sb) sb.textContent = cartTotal;
 }
 
 /* ======== PRODUCT CARD ======== */
@@ -302,12 +352,85 @@ function renderProductCard(p) {
     </div>`;
 }
 
-/* ======== FEATURED ROW (horizontal scroll) ======== */
+/* ======== FEATURED ROW ======== */
 function renderFeatured() {
   const row = document.getElementById('featuredRow');
   if (!row) return;
   const featured = products.filter(p => p.featured).slice(0, 8);
   row.innerHTML = featured.map(p => renderProductCard(p)).join('');
+}
+
+/* ======================================================
+   COLLECTION CLICK-TO-EXPAND (ChaseValue style)
+   When a collection card is clicked, a horizontal scroll
+   row of products for that category appears below the grid.
+   Clicking the same card again (or the close button) hides it.
+   ====================================================== */
+function toggleCollectionProducts(category, cardEl) {
+  const panel = document.getElementById('collectionExpandPanel');
+  const row   = document.getElementById('collectionProductsRow');
+  const title = document.getElementById('cepTitle');
+  const viewAllBtn = document.getElementById('cepViewAll');
+
+  // If clicking the same card that's already open → close
+  if (activeCollectionCategory === category && panel.style.display !== 'none') {
+    closeCollectionPanel();
+    return;
+  }
+
+  // Deactivate previous card
+  if (activeCollectionCard) {
+    activeCollectionCard.classList.remove('cc-active');
+    const prevArrow = activeCollectionCard.querySelector('.cc-arrow');
+    if (prevArrow) prevArrow.textContent = 'Shop Now ↓';
+  }
+
+  // Activate new card
+  activeCollectionCategory = category;
+  activeCollectionCard = cardEl;
+  cardEl.classList.add('cc-active');
+  const arrow = cardEl.querySelector('.cc-arrow');
+  if (arrow) arrow.textContent = 'Close ↑';
+
+  // Populate
+  const catProducts = products.filter(p => p.category === category);
+  title.textContent = category + 's' === 'Eye Cares' ? 'Eye Care' : category + (category.endsWith('s') ? '' : 's');
+  // Fix title display
+  const catTitles = {
+    'Serum': 'Serums', 'Moisturizer': 'Moisturizers', 'Sunscreen': 'Sunscreen',
+    'Mask': 'Masks', 'Toner': 'Toners', 'Eye Care': 'Eye Care',
+    'Cleanser': 'Cleansers', 'Lip Care': 'Lip Care', 'Body Care': 'Body Care'
+  };
+  title.textContent = catTitles[category] || category;
+
+  row.innerHTML = catProducts.length
+    ? catProducts.map(p => renderProductCard(p)).join('')
+    : `<div style="padding:2rem;color:var(--muted);font-size:.9rem">No products in this category yet.</div>`;
+
+  viewAllBtn.onclick = () => filterAndGo(category);
+  viewAllBtn.textContent = `View All ${catTitles[category] || category} →`;
+
+  // Show panel with animation
+  panel.style.display = 'block';
+
+  // Smooth scroll to panel
+  setTimeout(() => {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 60);
+}
+
+function closeCollectionPanel() {
+  const panel = document.getElementById('collectionExpandPanel');
+  panel.style.display = 'none';
+
+  if (activeCollectionCard) {
+    activeCollectionCard.classList.remove('cc-active');
+    const arrow = activeCollectionCard.querySelector('.cc-arrow');
+    if (arrow) arrow.textContent = 'Shop Now ↓';
+  }
+
+  activeCollectionCategory = null;
+  activeCollectionCard = null;
 }
 
 /* ======== SHOP ======== */
@@ -886,7 +1009,6 @@ function renderAdminCustomersTable() {
 function editProduct(id) {
   const p = products.find(x => x.id === id);
   if (!p) return;
-  // Find add-product button and click it
   document.querySelectorAll('.an-btn').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.admin-tab').forEach(t => t.style.display = 'none');
   document.getElementById('admin-add-product').style.display = 'block';

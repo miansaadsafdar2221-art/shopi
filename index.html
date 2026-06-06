@@ -14,7 +14,54 @@
 <div id="toast" class="toast"></div>
 <div class="overlay" id="overlay" onclick="closeAll()"></div>
 
-<!-- NAVBAR -->
+<!-- ===================== HOVER SIDEBAR ===================== -->
+<div class="hover-sidebar" id="hoverSidebar">
+  <!-- Trigger strip (always visible, thin) -->
+  <div class="hs-trigger" id="hsTrigger">
+    <span class="hs-trigger-icon">❯</span>
+  </div>
+  <!-- Sidebar panel -->
+  <div class="hs-panel" id="hsPanel">
+    <div class="hs-logo">Saad <em>Beauty</em></div>
+    <nav class="hs-nav">
+      <a class="hs-link" href="#" onclick="showPage('home');closeSidebar()">
+        <span class="hs-link-icon">🏠</span><span>Home</span>
+      </a>
+      <a class="hs-link" href="#" onclick="showPage('shop');closeSidebar()">
+        <span class="hs-link-icon">🛍️</span><span>Shop</span>
+      </a>
+      <a class="hs-link" href="#" onclick="showPage('home');scrollToEl('#collections');closeSidebar()">
+        <span class="hs-link-icon">✨</span><span>Collections</span>
+      </a>
+      <a class="hs-link" href="#" onclick="showPage('home');scrollToEl('#about');closeSidebar()">
+        <span class="hs-link-icon">🌿</span><span>About</span>
+      </a>
+      <a class="hs-link" href="#" onclick="showPage('wishlist');closeSidebar()">
+        <span class="hs-link-icon">💛</span><span>Wishlist</span>
+      </a>
+      <a class="hs-link" href="#" onclick="showPage('orders');closeSidebar()">
+        <span class="hs-link-icon">📦</span><span>My Orders</span>
+      </a>
+    </nav>
+    <div class="hs-categories">
+      <p class="hs-cat-label">Categories</p>
+      <button class="hs-cat-btn" onclick="filterAndGo('Serum');closeSidebar()">Serums</button>
+      <button class="hs-cat-btn" onclick="filterAndGo('Moisturizer');closeSidebar()">Moisturizers</button>
+      <button class="hs-cat-btn" onclick="filterAndGo('Sunscreen');closeSidebar()">Sunscreen</button>
+      <button class="hs-cat-btn" onclick="filterAndGo('Mask');closeSidebar()">Masks</button>
+      <button class="hs-cat-btn" onclick="filterAndGo('Toner');closeSidebar()">Toners</button>
+      <button class="hs-cat-btn" onclick="filterAndGo('Eye Care');closeSidebar()">Eye Care</button>
+      <button class="hs-cat-btn" onclick="filterAndGo('Cleanser');closeSidebar()">Cleansers</button>
+      <button class="hs-cat-btn" onclick="filterAndGo('Lip Care');closeSidebar()">Lip Care</button>
+    </div>
+    <div class="hs-footer">
+      <button class="hs-footer-btn" onclick="toggleAuth();closeSidebar()">👤 Account</button>
+      <button class="hs-footer-btn" onclick="toggleCart();closeSidebar()">🛒 Cart <span id="hsSidebarCartBadge" class="hs-badge">0</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- NAVBAR (no nav-links, they moved to sidebar) -->
 <header class="header" id="header">
   <div class="header-top">
     <span>✦ Free shipping on orders over $50 &nbsp;|&nbsp; Use code <strong>SAAD20</strong> for 20% off ✦</span>
@@ -24,12 +71,7 @@
       <span></span><span></span><span></span>
     </button>
     <a href="#" class="logo" onclick="showPage('home')">Saad <em>Beauty Care</em></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#" onclick="showPage('home')">Home</a></li>
-      <li><a href="#" onclick="showPage('shop')">Shop</a></li>
-      <li><a href="#" onclick="showPage('home'); scrollToEl('#collections')">Collections</a></li>
-      <li><a href="#" onclick="showPage('home'); scrollToEl('#about')">About</a></li>
-    </ul>
+    <!-- nav-links removed — now in hover sidebar -->
     <div class="nav-actions">
       <button class="icon-btn" onclick="toggleSearch()" aria-label="Search">
         <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
@@ -162,7 +204,7 @@
     </div>
   </div>
 
-  <!-- HORIZONTAL SCROLL PRODUCTS (like recording) -->
+  <!-- HORIZONTAL SCROLL PRODUCTS -->
   <section class="section" id="featured">
     <div class="container">
       <div class="section-header">
@@ -172,40 +214,50 @@
         </div>
         <button class="btn btn-outline" onclick="showPage('shop')">View All →</button>
       </div>
-      <!-- Horizontal scroll row -->
       <div class="products-row-scroll" id="featuredRow"></div>
     </div>
   </section>
 
-  <!-- COLLECTIONS — square cards -->
+  <!-- COLLECTIONS — click to expand product list like ChaseValue -->
   <section class="section collections-sec" id="collections">
     <div class="container">
       <p class="section-eyebrow" style="text-align:center">Categories</p>
       <h2 class="section-title" style="text-align:center">Shop by Collection</h2>
       <div class="collections-grid">
-        <div class="collection-card cc1" onclick="filterAndGo('Serum')">
-          <div class="cc-content"><h3>Serums</h3><p>Targeted treatments for every concern</p><span>Shop Now →</span></div>
+        <div class="collection-card cc1" onclick="toggleCollectionProducts('Serum', this)">
+          <div class="cc-content"><h3>Serums</h3><p>Targeted treatments for every concern</p><span class="cc-arrow">Shop Now ↓</span></div>
         </div>
-        <div class="collection-card cc2" onclick="filterAndGo('Moisturizer')">
-          <div class="cc-content"><h3>Moisturizers</h3><p>Deep hydration for radiant skin</p><span>Shop Now →</span></div>
+        <div class="collection-card cc2" onclick="toggleCollectionProducts('Moisturizer', this)">
+          <div class="cc-content"><h3>Moisturizers</h3><p>Deep hydration for radiant skin</p><span class="cc-arrow">Shop Now ↓</span></div>
         </div>
-        <div class="collection-card cc3" onclick="filterAndGo('Sunscreen')">
-          <div class="cc-content"><h3>Sunscreen</h3><p>Protect & perfect every day</p><span>Shop Now →</span></div>
+        <div class="collection-card cc3" onclick="toggleCollectionProducts('Sunscreen', this)">
+          <div class="cc-content"><h3>Sunscreen</h3><p>Protect & perfect every day</p><span class="cc-arrow">Shop Now ↓</span></div>
         </div>
-        <div class="collection-card cc4" onclick="filterAndGo('Mask')">
-          <div class="cc-content"><h3>Masks</h3><p>Intensive weekly rituals</p><span>Shop Now →</span></div>
+        <div class="collection-card cc4" onclick="toggleCollectionProducts('Mask', this)">
+          <div class="cc-content"><h3>Masks</h3><p>Intensive weekly rituals</p><span class="cc-arrow">Shop Now ↓</span></div>
         </div>
-        <div class="collection-card cc5" onclick="filterAndGo('Toner')">
-          <div class="cc-content"><h3>Toners</h3><p>Balance & prep your skin</p><span>Shop Now →</span></div>
+        <div class="collection-card cc5" onclick="toggleCollectionProducts('Toner', this)">
+          <div class="cc-content"><h3>Toners</h3><p>Balance & prep your skin</p><span class="cc-arrow">Shop Now ↓</span></div>
         </div>
-        <div class="collection-card cc6" onclick="filterAndGo('Eye Care')">
-          <div class="cc-content"><h3>Eye Care</h3><p>Brighten & depuff instantly</p><span>Shop Now →</span></div>
+        <div class="collection-card cc6" onclick="toggleCollectionProducts('Eye Care', this)">
+          <div class="cc-content"><h3>Eye Care</h3><p>Brighten & depuff instantly</p><span class="cc-arrow">Shop Now ↓</span></div>
         </div>
-        <div class="collection-card cc7" onclick="filterAndGo('Cleanser')">
-          <div class="cc-content"><h3>Cleansers</h3><p>Gentle cleanse, fresh start</p><span>Shop Now →</span></div>
+        <div class="collection-card cc7" onclick="toggleCollectionProducts('Cleanser', this)">
+          <div class="cc-content"><h3>Cleansers</h3><p>Gentle cleanse, fresh start</p><span class="cc-arrow">Shop Now ↓</span></div>
         </div>
-        <div class="collection-card cc8" onclick="filterAndGo('Lip Care')">
-          <div class="cc-content"><h3>Lip Care</h3><p>Plump, nourish, protect</p><span>Shop Now →</span></div>
+        <div class="collection-card cc8" onclick="toggleCollectionProducts('Lip Care', this)">
+          <div class="cc-content"><h3>Lip Care</h3><p>Plump, nourish, protect</p><span class="cc-arrow">Shop Now ↓</span></div>
+        </div>
+      </div>
+      <!-- Expandable product row — appears below the grid when a card is clicked -->
+      <div class="collection-expand-panel" id="collectionExpandPanel" style="display:none">
+        <div class="cep-header">
+          <h3 id="cepTitle"></h3>
+          <button class="cep-close" onclick="closeCollectionPanel()">✕ Close</button>
+        </div>
+        <div class="products-row-scroll" id="collectionProductsRow"></div>
+        <div style="text-align:center;margin-top:1.5rem">
+          <button class="btn btn-outline" id="cepViewAll" onclick="">View All →</button>
         </div>
       </div>
     </div>
